@@ -1,4 +1,4 @@
-from main.models import Article
+from articles.models import Article
 from django.test import LiveServerTestCase
 from selenium import webdriver
 import time
@@ -49,3 +49,10 @@ class NewVisitorTest(LiveServerTestCase):
 
         #He reads the article's text
         self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
+
+        #He goes back to home page
+        self.browser.find_element_by_partial_link_text('Home').click()
+        time.sleep(1)
+        self.assertHomePage()
+
+        self.fail('Work harder, bitch')

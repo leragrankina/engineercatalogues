@@ -547,3 +547,29 @@ JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-9
 1479581867998	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
 1479581868000	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53617
 1479581869936	Marionette	INFO	Listening on port 53617
+1479582546407	geckodriver	INFO	Listening on 127.0.0.1:54631
+1479582548377	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.Ww0WJ7nwh1O9
+1479582548393	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1479582548408	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54644
+1479582550935	Marionette	INFO	Listening on port 54644
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-9e26e649d827af164113.a0bc6be53ed8.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1479582697605	geckodriver	INFO	Listening on 127.0.0.1:54880
+1479582699567	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.NEYLte47DoI5
+1479582699586	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1479582699589	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54888
+1479582701999	Marionette	INFO	Listening on port 54888
+1479582753399	geckodriver	INFO	Listening on 127.0.0.1:54996
+1479582755398	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.mpFtNZPmBRQS
+1479582755414	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1479582755429	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55005
+1479582757972	Marionette	INFO	Listening on port 55005
+1479582790368	geckodriver	INFO	Listening on 127.0.0.1:55099
+1479582792378	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.XkFMYCBNZq1c
+1479582792394	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1479582792394	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55108
+1479582793712	Marionette	INFO	Listening on port 55108
+1479582887911	geckodriver	INFO	Listening on 127.0.0.1:55285
+1479582889913	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.wteR9lkWgYKl
+1479582889928	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1479582889944	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55293
+1479582891754	Marionette	INFO	Listening on port 55293

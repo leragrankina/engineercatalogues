@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.models import Article
+from articles.models import Article
 
 
 def index(request):

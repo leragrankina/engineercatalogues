@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.core import urlresolvers
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-from main import views
-from main.models import Article
+from articles import views
+from articles.models import Article
 from datetime import datetime
 
 
@@ -95,14 +95,12 @@ class ArticleModelTests(TestCase):
         article = Article()
         article.title = 'First Article'
         article.save()
-
         saved_articles = Article.objects.all()
         self.assertEqual(saved_articles[0].title, 'First Article')
 
     def test_article_url(self):
         article = Article(url='bushes')
         article.save()
-
         saved_articles = Article.objects.all()
         self.assertEqual(saved_articles[0].url, 'bushes')
 
