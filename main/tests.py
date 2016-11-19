@@ -3,6 +3,7 @@ from django.core import urlresolvers
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from main import views
+from main.models import Article
 
 
 class IndexPage(TestCase):
@@ -42,5 +43,24 @@ class IndexPage(TestCase):
         response = views.article_page(request, 'bushes')
         expected_html = render_to_string('bushes.html')
         self.assertEqual(response.content.decode(), expected_html)
+
+
+class ArticleModelTests(TestCase):
+    def test_saving_and_retrieving_articles(self):
+        first_article = Article()
+        first_article.text = 'First (ever) article'
+        first_article.save()
+
+        second_article = Article()
+        second_article.text = 'Second article'
+        second_article.save()
+
+        saved_articles = Article.objects.all()
+        self.assertEqual(saved_articles.count(), 2)
+
+        first_saved_article = saved_articles[0]
+        second_saved_article = saved_articles[1]
+        self.assertEqual(first_saved_article.text, 'First (ever) article')
+        self.assertEqual(second_saved_article.text, 'Second article')
 
 
