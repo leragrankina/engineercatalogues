@@ -44,6 +44,16 @@ class IndexPage(TestCase):
         expected_html = render_to_string('bushes.html')
         self.assertEqual(response.content.decode(), expected_html)
 
+    def test_articles_list_page(self):
+        Article.objects.create(text='Linear Ball Bearings')
+        Article.objects.create(text='Some second article')
+
+        request = HttpRequest()
+        response = views.articles_list(request)
+
+        self.assertIn('Linear Ball Bearings', response.content.decode('UTF-8'))
+        self.assertIn('Some second article', response.content.decode('UTF-8'))
+
 
 class ArticleModelTests(TestCase):
     def test_saving_and_retrieving_articles(self):

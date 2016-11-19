@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from main.models import Article
 
 
 def index(request):
@@ -6,7 +7,7 @@ def index(request):
 
 
 def articles_list(request):
-    return render(request, 'index_articles.html')
+    return render(request, 'index_articles.html', {'articles': Article.objects.all()})
 
 
 def catalogues_list(request):

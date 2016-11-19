@@ -26,8 +26,8 @@ class NewVisitorTest(TestCase):
         time.sleep(1)
         self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
 
-        #He wants to view article Linear Ball Bearing
-        self.browser.find_element_by_partial_link_text('Linear Ball Bearing').click()
-        time.sleep(1)
-        self.assertIn('Линейные подшипники', self.browser.title)
+        #He sees a list of articles
+        articles = self.browser.find_elements_by_tag_name("tr")
+        self.assertEqual(len(articles), 2)
+
 

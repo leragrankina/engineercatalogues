@@ -2,5 +2,11 @@
 <head>
 <title>Статьи "В помощь конструктору"</title></head>
 {% include 'nav.html' %}
-<a href="/articles/bushes">Linear Ball Bearing</a>
+<table id="articles_list">
+    {% for article in articles %}
+    <tr>
+        <td>{{ article.text }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </html>
