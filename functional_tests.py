@@ -1,5 +1,6 @@
 from django.test import TestCase
 from selenium import webdriver
+import time
 
 
 class NewVisitorTest(TestCase):
@@ -10,7 +11,23 @@ class NewVisitorTest(TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_main_page(self):
-        self.browser.get('http://localhost:8000')
+    def assertHomePage(self):
         self.assertIn('Статьи и каталоги', self.browser.title)
+
+    def clickHomePage(self):
+        self.browser.find_element_by_id("home_link").click()
+
+    def test_site_navigation(self):
+        self.browser.get('http://localhost:8000')
+        self.assertHomePage()
+
+        #Andrew wants to see the 'Articles' page
+        self.browser.find_element_by_id("articles_list_link").click()
+        time.sleep(1)
+        self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
+
+        #He wants to view article Linear Ball Bearing
+        self.browser.find_element_by_partial_link_text('Linear Ball Bearing').click()
+        time.sleep(1)
+        self.assertIn('Линейные подшипники', self.browser.title)
 

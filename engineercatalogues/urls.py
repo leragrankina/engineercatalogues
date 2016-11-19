@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from main.views import index
+from main.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', index, name="index")
+    url(r'^$', index, name="index"),
+    url(r'^articles$', articles_list, name="articles_list"),
+    url(r'^catalogues$', catalogues_list, name="catalogues_list"),
+    url(r'^articles/(?P<page>[A-z]+)$', article_page, name="article")
 ]
