@@ -14,5 +14,5 @@ def catalogues_list(request):
     return render(request, 'catalog.html')
 
 
-def article_page(request, page):
-    return render(request, page + ".html")
+def article_page(request, art_url):
+    return render(request, 'article_details.html', {'article': Article.objects.get(url=art_url)})

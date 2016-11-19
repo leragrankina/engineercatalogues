@@ -5,7 +5,8 @@
 <table id="articles_list">
     {% for article in articles %}
     <tr>
-        <td>{{ article.text }}</td>
+        <td><a href="{% url 'article' article.url %}">{{ article.title }}</a></td>
+        <td>{{ article.date_written | date:"d F, Y"}}</td>
     </tr>
     {% endfor %}
 </table>
