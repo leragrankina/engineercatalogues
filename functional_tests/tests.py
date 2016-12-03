@@ -50,6 +50,19 @@ class NewVisitorTest(LiveServerTestCase):
         #He reads the article's text
         self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
 
+        #He goes back to home page
+        self.browser.find_element_by_partial_link_text('Home').click()
+        time.sleep(1)
+        self.assertHomePage()
+
+        self.fail('Work harder, bitch')
+
+    def test_comment_input(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(1)
+        self.browser.find_element_by_id("articles_list_link").click()
+        self.browser.find_element_by_partial_link_text('First').click()
+
         #He sees an inputbox for comment
         inputbox = self.browser.find_element_by_id('comment_input')
 
@@ -76,10 +89,3 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(1)
         comments = self.browser.find_elements_by_class_name('comment')
         self.assertEqual(len(comments), 0)
-
-        #He goes back to home page
-        self.browser.find_element_by_partial_link_text('Home').click()
-        time.sleep(1)
-        self.assertHomePage()
-
-        self.fail('Work harder, bitch')

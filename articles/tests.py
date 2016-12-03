@@ -21,23 +21,14 @@ class IndexPage(TestCase):
         expected_html = render_to_string(file)
         self.assertEqual(response.content.decode('UTF-8'), expected_html)
 
-    def test_root_resolves_to_index(self):
-        self.compare_resolved_to_func('/', views.index)
-
     def test_home_page_returns_correct_view(self):
         self.compare_response_to_html(views.index, 'index.html')
 
     def test_articles_resolves_to_articles_list(self):
-        self.compare_resolved_to_func('/articles', views.articles_list)
+        self.compare_resolved_to_func('/articles/', views.articles_list)
 
-    def test_artciles_page_returns_articles(self):
+    def test_articles_page_returns_articles(self):
         self.compare_response_to_html(views.articles_list, 'index_articles.html')
-
-    def test_catalogues_resolves_to_catalogues_list(self):
-        self.compare_resolved_to_func("/catalogues", views.catalogues_list)
-
-    def test_catalogues_page_returns_catalogues(self):
-        self.compare_response_to_html(views.catalogues_list, 'catalog.html')
 
 
 class ArticleDetailPage(TestCase):
@@ -87,7 +78,7 @@ class ArticleListPage(TestCase):
        self.assertIn('First Article', response)
        self.assertIn('Second Article', response)
 
-       article_detail_url = reverse('article', args=[self.first.pk])
+       article_detail_url = reverse('articles:detail', args=[self.first.pk])
 
        self.assertRegex(response, '<a href="%s"'%article_detail_url)
 
