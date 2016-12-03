@@ -9,9 +9,9 @@ class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
-        self.first_article = Article(text='First ever article', title='First Article', url='first-article')
+        self.first_article = Article(text='First ever article', title='First Article')
         self.first_article.save()
-        self.second_article = Article(text='Second article', title='Second Article', url='second-article')
+        self.second_article = Article(text='Second article', title='Second Article')
         self.second_article.save()
 
     def tearDown(self):
@@ -43,10 +43,9 @@ class NewVisitorTest(LiveServerTestCase):
         second_cell = cells[1].text
         self.assertRegex(second_cell, '\d{2} [A-zА-я]+, \d{4}')
 
-        #He clicks the title of an article and redirects to a page with url as title
+        #He clicks the title of an article
         first_article.find_element_by_tag_name('a').click()
         time.sleep(1)
-        self.assertRegex(self.browser.current_url, 'first-article')
 
         #He reads the article's text
         self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
@@ -70,6 +69,13 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertTrue('Really good article' in comments_texts)
         self.assertTrue('Good article' in comments_texts)
 
+        #Comments are displayed only for current article
+        self.browser.find_element_by_partial_link_text('Articles').click()
+        time.sleep(1)
+        self.browser.find_element_by_partial_link_text('Second').click()
+        time.sleep(1)
+        comments = self.browser.find_elements_by_class_name('comment')
+        self.assertEqual(len(comments), 0)
 
         #He goes back to home page
         self.browser.find_element_by_partial_link_text('Home').click()

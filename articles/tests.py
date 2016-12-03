@@ -1,10 +1,13 @@
+from datetime import datetime
+
 from django.test import TestCase
 from django.core import urlresolvers
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-from articles import views
-from articles.models import Article, Comment
-from datetime import datetime
+from django.urls import reverse
+
+from . import views
+from .models import Article, Comment
 
 
 class IndexPage(TestCase):
@@ -39,38 +42,38 @@ class IndexPage(TestCase):
 
 class ArticleDetailPage(TestCase):
     def setUp(self):
-        self.article = Article(text='text', title='title', url='url')
+        self.article = Article(text='text', title='title')
         self.article.save()
 
     def test_article_resolves_to_html(self):
-        found = urlresolvers.resolve('/articles/url')
+        found = urlresolvers.resolve('/articles/1')
         self.assertEqual(views.article_detail, found.func)
 
     def test_article_name_maps_to_html(self):
         request = HttpRequest()
-        response = views.article_detail(request, self.article.url).content.decode()
+        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
         self.assertIn(self.article.text, response)
 
     def test_can_save_comment(self):
         request = HttpRequest()
         request.POST['comment_text'] = 'Good article'
-        response = views.article_detail(request, 'url').content.decode('UTF-8')
+        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
         self.assertIn('Good article', response)
 
     def test_prints_all_comments_in_db(self):
         request = HttpRequest()
-        Comment(text='First comment').save()
-        Comment(text='Second comment').save()
-        response = views.article_detail(request, 'url').content.decode('UTF-8')
+        Comment(text='First comment', article=self.article).save()
+        Comment(text='Second comment', article=self.article).save()
+        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
         for text in map(lambda c: c.text, Comment.objects.all()):
             self.assertIn(text, response)
 
 
 class ArticleListPage(TestCase):
     def setUp(self):
-        self.first = Article.objects.create(text='Linear Ball Bearings', title='First Article', url='first-article')
+        self.first = Article.objects.create(text='Linear Ball Bearings', title='First Article')
         self.first.save()
-        self.second = Article.objects.create(text='Some second article', title='Second Article', url='second-article')
+        self.second = Article.objects.create(text='Some second article', title='Second Article')
         self.second.save()
 
     def test_articles_list_page(self):
@@ -84,7 +87,9 @@ class ArticleListPage(TestCase):
        self.assertIn('First Article', response)
        self.assertIn('Second Article', response)
 
-       self.assertRegex(response, '<a href=".*first-article*"')
+       article_detail_url = reverse('article', args=[self.first.pk])
+
+       self.assertRegex(response, '<a href="%s"'%article_detail_url)
 
 
 class ArticleModelTests(TestCase):
@@ -117,13 +122,17 @@ class ArticleTest(TestCase):
     def test_article_title(self):
         self.check_article_field('title', 'First Article')
 
-    def test_article_url(self):
-        self.check_article_field('url', 'bushes')
-
 
 class CommentTest(TestCase):
-    def check_comment_text(self):
-        comment = Comment(text='Good article')
-        comment.save()
+    def setUp(self):
+        self.article = Article(title='First', text='First article')
+        self.article.save()
+        self.comment = Comment(text='Good article', article=Article.objects.first())
+        self.comment.save()
+
+    def test_comment_text(self):
         self.assertEqual(Comment.objects.all().count(), 1)
         self.assertEqual(Comment.objects.all().first().text, 'Good article')
+
+    def test_article_field(self):
+        self.assertEqual(self.comment.article.text, self.article.text)
