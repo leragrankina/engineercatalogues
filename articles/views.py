@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from articles.models import Article
+from articles.models import Article, Comment
 
 
 def index(request):
@@ -14,5 +14,10 @@ def catalogues_list(request):
     return render(request, 'catalog.html')
 
 
-def article_page(request, art_url):
-    return render(request, 'article_details.html', {'article': Article.objects.get(url=art_url)})
+def article_detail(request, art_url):
+    comment_text = request.POST.get('comment_text', '')
+    if comment_text:
+        comment = Comment(text=comment_text)
+        comment.save()
+    return render(request, 'article_details.html', {'article': Article.objects.get(url=art_url),
+                                                    'comments': Comment.objects.all()})

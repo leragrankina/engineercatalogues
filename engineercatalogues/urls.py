@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^articles$', articles_list, name="articles_list"),
     url(r'^catalogues$', catalogues_list, name="catalogues_list"),
-    url(r'^articles/(?P<art_url>[-A-z]+)$', article_page, name="article")
+    url(r'^articles/(?P<art_url>[-A-z]+)$', article_detail, name="article")
 ]

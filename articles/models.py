@@ -11,3 +11,9 @@ class Article(models.Model):
     def __repr__(self):
         return self.text + " " + self.url
 
+
+class Comment(models.Model):
+    text = models.TextField(default='')
+
+    def __repr__(self):
+        return self.text

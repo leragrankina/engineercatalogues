@@ -11,5 +11,15 @@
     <p>{{ article.date_written }}</p>
     <p>{{ article.text }}</p>
 </div>
+{% if comments %}
+    {% for comment in comments %}
+        <p class="comment">{{ comment.text }}</p>
+    {% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" id="comment_input" name="comment_text">
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

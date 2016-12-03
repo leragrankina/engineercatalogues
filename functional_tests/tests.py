@@ -1,6 +1,7 @@
 from articles.models import Article
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import time
 
 
@@ -49,6 +50,26 @@ class NewVisitorTest(LiveServerTestCase):
 
         #He reads the article's text
         self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
+
+        #He sees an inputbox for comment
+        inputbox = self.browser.find_element_by_id('comment_input')
+
+        #He enters a text Good article
+        inputbox.send_keys('Good article')
+        inputbox.send_keys(Keys.ENTER)
+        comments = self.browser.find_elements_by_class_name('comment')
+        self.assertTrue('Good article' in list(map(lambda c: c.text, comments)))
+
+        #He again enters text
+        inputbox = self.browser.find_element_by_id('comment_input')
+        inputbox.send_keys('Really good article')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(2)
+        comments = self.browser.find_elements_by_class_name('comment')
+        comments_texts = list(map(lambda c: c.text, comments))
+        self.assertTrue('Really good article' in comments_texts)
+        self.assertTrue('Good article' in comments_texts)
+
 
         #He goes back to home page
         self.browser.find_element_by_partial_link_text('Home').click()
