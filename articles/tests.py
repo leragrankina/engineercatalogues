@@ -23,7 +23,8 @@ class IndexPage(TestCase):
         self.assertEqual(response.content.decode('UTF-8'), expected_html)
 
     def test_home_page_returns_correct_view(self):
-        self.compare_response_to_html(views.index, 'index.html')
+        response = self.client.get(reverse_lazy('index'))
+        self.assertTemplateUsed(response, 'index.html')
 
     def test_articles_resolves_to_articles_list(self):
         self.compare_resolved_to_func('/articles/', views.ArticleList.as_view())
@@ -151,3 +152,7 @@ class TestAuthentification(TestCase):
         self.client.logout()
         response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
         self.assertNotIn('comment_input', response)
+
+    def test_logout_link(self):
+        response = self.client.get(reverse_lazy('index')).content.decode('UTF-8')
+        self.assertIn('logout', response)
