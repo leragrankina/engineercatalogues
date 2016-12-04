@@ -13,7 +13,7 @@ from .models import Article, Comment
 class IndexPage(TestCase):
     def compare_resolved_to_func(self, url, func):
         found = urlresolvers.resolve(url)
-        self.assertEqual(func, found.func)
+        self.assertEqual(func.__name__, found.func.__name__)
 
     def compare_response_to_html(self, function, file):
         request = HttpRequest()
@@ -25,10 +25,11 @@ class IndexPage(TestCase):
         self.compare_response_to_html(views.index, 'index.html')
 
     def test_articles_resolves_to_articles_list(self):
-        self.compare_resolved_to_func('/articles/', views.articles_list)
+        self.compare_resolved_to_func('/articles/', views.ArticleList.as_view())
 
     def test_articles_page_returns_articles(self):
-        self.compare_response_to_html(views.articles_list, 'index_articles.html')
+        response = self.client.get('/articles/')
+        self.assertTemplateUsed(response, 'index_articles.html')
 
 
 class ArticleDetailPage(TestCase):
@@ -38,24 +39,23 @@ class ArticleDetailPage(TestCase):
 
     def test_article_resolves_to_html(self):
         found = urlresolvers.resolve('/articles/1')
-        self.assertEqual(views.article_detail, found.func)
+        self.assertEqual(views.ArticleDetail.as_view().__name__, found.func.__name__)
 
     def test_article_name_maps_to_html(self):
-        request = HttpRequest()
-        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
+        response = self.client.get('/articles/' + str(self.article.pk)).content.decode('UTF-8')
         self.assertIn(self.article.text, response)
 
     def test_can_save_comment(self):
         request = HttpRequest()
         request.POST['comment_text'] = 'Good article'
-        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
+        views.save_comment(request, self.article.pk)
+        response = self.client.get('/articles/%d'%self.article.id).content.decode('UTF-8')
         self.assertIn('Good article', response)
 
     def test_prints_all_comments_in_db(self):
-        request = HttpRequest()
         Comment(text='First comment', article=self.article).save()
         Comment(text='Second comment', article=self.article).save()
-        response = views.article_detail(request, self.article.pk).content.decode('UTF-8')
+        response = self.client.get('/articles/' + str(self.article.pk)).content.decode('UTF-8')
         for text in map(lambda c: c.text, Comment.objects.all()):
             self.assertIn(text, response)
 
@@ -68,19 +68,18 @@ class ArticleListPage(TestCase):
         self.second.save()
 
     def test_articles_list_page(self):
-       request = HttpRequest()
-       response = views.articles_list(request).content.decode('UTF-8')
+        response = self.client.get('/articles/').content.decode('UTF-8')
 
-       self.assertNotIn('Linear Ball Bearings', response)
-       self.assertNotIn('Some second article', response)
+        self.assertNotIn('Linear Ball Bearings', response)
+        self.assertNotIn('Some second article', response)
 
-       self.assertIn(datetime.now().date().strftime("%d %B, %Y"), response)
-       self.assertIn('First Article', response)
-       self.assertIn('Second Article', response)
+        self.assertIn(datetime.now().date().strftime("%d %B, %Y"), response)
+        self.assertIn('First Article', response)
+        self.assertIn('Second Article', response)
 
-       article_detail_url = reverse('articles:detail', args=[self.first.pk])
+        article_detail_url = reverse('articles:detail', args=[self.first.pk])
 
-       self.assertRegex(response, '<a href="%s"'%article_detail_url)
+        self.assertRegex(response, '<a href="%s"'%article_detail_url)
 
 
 class ArticleModelTests(TestCase):

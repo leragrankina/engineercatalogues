@@ -1,11 +1,15 @@
-from articles.models import Article
-from django.test import LiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import time
 
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(LiveServerTestCase):
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+
+from articles.models import Article
+
+
+class OldVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -13,6 +17,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.first_article.save()
         self.second_article = Article(text='Second article', title='Second Article')
         self.second_article.save()
+        self.client.login(login_input='andrew', password_input='leralera')
 
     def tearDown(self):
         self.browser.quit()
@@ -27,7 +32,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         self.assertHomePage()
 
-        #Andrew wants to see the 'Articles' page
+       #Andrew wants to see the 'Articles' page
         self.browser.find_element_by_id("articles_list_link").click()
         time.sleep(1)
         self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
@@ -60,8 +65,11 @@ class NewVisitorTest(LiveServerTestCase):
     def test_comment_input(self):
         self.browser.get(self.live_server_url)
         time.sleep(1)
+
+        #He clicks article
         self.browser.find_element_by_id("articles_list_link").click()
         self.browser.find_element_by_partial_link_text('First').click()
+        time.sleep(1)
 
         #He sees an inputbox for comment
         inputbox = self.browser.find_element_by_id('comment_input')
@@ -89,3 +97,27 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(1)
         comments = self.browser.find_elements_by_class_name('comment')
         self.assertEqual(len(comments), 0)
+
+
+class NewVisitorTest(LiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
+        self.first_article = Article(text='First ever article', title='First Article')
+        self.first_article.save()
+        self.second_article = Article(text='Second article', title='Second Article')
+        self.second_article.save()
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_authorization(self):
+        self.browser.get(self.live_server_url)
+        time.sleep(1)
+        self.browser.find_element_by_id("articles_list_link").click()
+        self.browser.find_element_by_partial_link_text('First').click()
+        try:
+            self.browser.find_element_by_id('comment_input')
+            self.fail('Unauthorized users can add comments')
+        except NoSuchElementException:
+            pass

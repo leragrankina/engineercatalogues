@@ -11,12 +11,12 @@
     <p>{{ article.date_written }}</p>
     <p>{{ article.text }}</p>
 </div>
-{% if comments %}
-    {% for comment in comments %}
+{% if article.comment_set %}
+    {% for comment in article.comment_set.all %}
         <p class="comment">{{ comment.text }}</p>
     {% endfor %}
 {% endif %}
-<form method="POST">
+<form method="POST" action="{% url 'articles:add_comment' article.id %}">
     {% csrf_token %}
     <input type="text" id="comment_input" name="comment_text">
     <input type="submit" value="Submit">

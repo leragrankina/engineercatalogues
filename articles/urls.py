@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
-from .views import articles_list, article_detail
+from .views import ArticleList, ArticleDetail, save_comment
 
 urlpatterns = [
-    url(r'^$', articles_list, name='list'),
-    url(r'^(?P<article_id>[0-9]+)$', article_detail, name="detail"),
+    url(r'^$', ArticleList.as_view(), name='list'),
+    url(r'^(?P<pk>[0-9]+)$', ArticleDetail.as_view(), name="detail"),
+    url(r'^(?P<pk>[0-9]+)/comment$', save_comment, name='add_comment')
 ]
