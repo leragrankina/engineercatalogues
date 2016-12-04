@@ -22,8 +22,7 @@ from articles.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', login, name='login'),
-    url(r'^logout/$', logout, {'next_page': reverse_lazy('index')}, name='logout'),
+    url(r'^accounts/', include('registration.backends.hmac.urls', namespace='accounts')),
     url(r'^$', index, name='index'),
     url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'^catalogues/', include('catalogues.urls', namespace='catalogues')),

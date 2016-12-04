@@ -123,3 +123,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = './images/'
 LOGIN_REDIRECT_URL = 'index'
+ACCOUNT_ACTIVATION_DAYS = 7

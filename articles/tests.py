@@ -156,3 +156,8 @@ class TestAuthentification(TestCase):
     def test_logout_link(self):
         response = self.client.get(reverse_lazy('index')).content.decode('UTF-8')
         self.assertIn('logout', response)
+
+    def test_no_such_user(self):
+        response = self.client.post(reverse_lazy('accounts:auth_login'), kwargs={'username': 'wrong', 'password': 'wrong'})\
+            .content.decode('UTF-8')
+        self.assertIn('User not found', response)
