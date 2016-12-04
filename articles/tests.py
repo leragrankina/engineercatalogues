@@ -4,7 +4,8 @@ from django.test import TestCase
 from django.core import urlresolvers
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.models import User
 
 from . import views
 from .models import Article, Comment
@@ -126,3 +127,27 @@ class CommentTest(TestCase):
 
     def test_article_field(self):
         self.assertEqual(self.comment.article.text, self.article.text)
+
+
+class TestAuthentification(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='test')
+        self.user.set_password('pass')
+        self.user.save()
+
+        self.article = Article.objects.create(title='test', text='article text')
+        self.article.save()
+
+        self.comment = Comment.objects.create(text='comment', article=self.article)
+        self.comment.save()
+
+        self.client.login(username='test', password='pass')
+
+    def test_authorized_can_add_comments(self):
+        response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
+        self.assertIn('comment_input', response)
+
+    def test_unauthorized_cannot_add_comments(self):
+        self.client.logout()
+        response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
+        self.assertNotIn('comment_input', response)

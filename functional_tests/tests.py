@@ -1,6 +1,7 @@
 import time
 
 from django.test import LiveServerTestCase
+from django.contrib.auth.models import User
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -17,54 +18,22 @@ class OldVisitorTest(LiveServerTestCase):
         self.first_article.save()
         self.second_article = Article(text='Second article', title='Second Article')
         self.second_article.save()
-        self.client.login(login_input='andrew', password_input='leralera')
+        self.user = User.objects.create(username='andrew')
+        self.user.set_password('leralera')
+        self.user.save()
 
     def tearDown(self):
         self.browser.quit()
 
-    def assertHomePage(self):
-        self.assertIn('Статьи и каталоги', self.browser.title)
-
-    def clickHomePage(self):
-        self.browser.find_element_by_id("home_link").click()
-
-    def test_site_navigation(self):
-        self.browser.get(self.live_server_url)
-        self.assertHomePage()
-
-       #Andrew wants to see the 'Articles' page
-        self.browser.find_element_by_id("articles_list_link").click()
-        time.sleep(1)
-        self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
-
-        #He sees a list of titles
-        articles = self.browser.find_elements_by_tag_name("tr")
-        self.assertEqual(len(articles), 2)
-        self.assertIn('First Article', articles[0].text)
-
-        #He wants to know when first article was written
-        first_article = articles[0]
-        cells = first_article.find_elements_by_tag_name('td')
-        second_cell = cells[1].text
-        self.assertRegex(second_cell, '\d{2} [A-zА-я]+, \d{4}')
-
-        #He clicks the title of an article
-        first_article.find_element_by_tag_name('a').click()
-        time.sleep(1)
-
-        #He reads the article's text
-        self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
-
-        #He goes back to home page
-        self.browser.find_element_by_partial_link_text('Home').click()
-        time.sleep(1)
-        self.assertHomePage()
-
-        self.fail('Work harder, bitch')
-
     def test_comment_input(self):
         self.browser.get(self.live_server_url)
         time.sleep(1)
+
+        #Andrew wants to logg in
+        self.browser.find_element_by_partial_link_text('login').click()
+        time.sleep(1)
+        self.browser.find_element_by_id('id_username').send_keys('andrew')
+        self.browser.find_element_by_id('id_password').send_keys('leralera' + Keys.ENTER)
 
         #He clicks article
         self.browser.find_element_by_id("articles_list_link").click()
@@ -110,6 +79,46 @@ class NewVisitorTest(LiveServerTestCase):
 
     def tearDown(self):
         self.browser.quit()
+
+    def assertHomePage(self):
+        self.assertIn('Статьи и каталоги', self.browser.title)
+
+    def clickHomePage(self):
+        self.browser.find_element_by_id("home_link").click()
+
+    def test_site_navigation(self):
+        self.browser.get(self.live_server_url)
+        self.assertHomePage()
+
+        #Andrew wants to see the 'Articles' page
+        self.browser.find_element_by_id("articles_list_link").click()
+        time.sleep(1)
+        self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
+
+        #He sees a list of titles
+        articles = self.browser.find_elements_by_tag_name("tr")
+        self.assertEqual(len(articles), 2)
+        self.assertIn('First Article', articles[0].text)
+
+        #He wants to know when first article was written
+        first_article = articles[0]
+        cells = first_article.find_elements_by_tag_name('td')
+        second_cell = cells[1].text
+        self.assertRegex(second_cell, '\d{2} [A-zА-я]+, \d{4}')
+
+        #He clicks the title of an article
+        first_article.find_element_by_tag_name('a').click()
+        time.sleep(1)
+
+        #He reads the article's text
+        self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
+
+        #He goes back to home page
+        self.browser.find_element_by_partial_link_text('Home').click()
+        time.sleep(1)
+        self.assertHomePage()
+
+        self.fail('Work harder, bitch')
 
     def test_authorization(self):
         self.browser.get(self.live_server_url)

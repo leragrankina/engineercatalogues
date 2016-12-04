@@ -16,10 +16,14 @@
         <p class="comment">{{ comment.text }}</p>
     {% endfor %}
 {% endif %}
+{% if user.is_authenticated %}
 <form method="POST" action="{% url 'articles:add_comment' article.id %}">
     {% csrf_token %}
     <input type="text" id="comment_input" name="comment_text">
     <input type="submit" value="Submit">
 </form>
+    {% else %}
+    <p>You must be logged in to add comments</p>
+{% endif %}
 </body>
 </html>
