@@ -138,9 +138,12 @@ TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'height': "500",
                           'width': "800",
                           'content_css': ['/static/articles/style.css'],
+                          'plugins': 'table',
                           'theme_advanced_location': "top",
                           'theme_advanced_buttons1': "undo,redo,|"
                                                      ",bold,italic,underline,|"
                                                      ",justifyleft,justifycenter,justifyright,alignjustify,|"
-                                                     ",bullist,numlist,outdent,indent"}
+                                                     ",bullist,numlist,outdent,indent",
+                          'theme_advanced_buttons2': "tablecontrols",
+                          }
 
