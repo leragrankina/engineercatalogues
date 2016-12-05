@@ -15,14 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
-from django.urls import reverse_lazy
 
 from articles.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.hmac.urls', namespace='accounts')),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^$', index, name='index'),
     url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'^catalogues/', include('catalogues.urls', namespace='catalogues')),

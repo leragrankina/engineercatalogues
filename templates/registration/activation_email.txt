@@ -1,0 +1,2 @@
+Click here to activate:
+http://localhost:8000/accounts/activate/{{activation_key}}">activate</a>

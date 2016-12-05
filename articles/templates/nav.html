@@ -1,10 +1,10 @@
 {% load static %}
 {% if user.is_authenticated %}
-    <a href="{% url 'accounts:auth_logout' %}">logout</a>
+    <a href="{% url 'auth_logout' %}">logout</a>
 {% else %}
     <p>
-        <a href="{% url 'accounts:registration_register' %}">register</a>
-        <a href="{% url 'accounts:auth_login' %}">login</a>
+        <a href="{% url 'registration_register' %}">register</a>
+        <a href="{% url 'auth_login' %}">login</a>
     </p>
 {% endif %}
 <div id="page_menu">

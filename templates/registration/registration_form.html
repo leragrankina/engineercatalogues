@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+{% include 'nav.html' %}
+<form method="post" action="{% url 'registration_register' %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Register" id="submit">
+</form>
+</body>
+</html>

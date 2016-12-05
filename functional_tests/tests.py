@@ -71,11 +71,6 @@ class NewVisitorTest(LiveServerTestCase):
         except NoSuchElementException:
             pass
 
-        self.browser.find_element_by_partial_link_text('register').click()
-        self.browser.find_element_by_id('id_username').send_keys('andrew')
-        self.browser.find_element_by_id('id_password').send_keys('leralera')
-        self.browser.find_element_by_id('submit').click()
-
         #Andrew wants to log in
         self.browser.find_element_by_partial_link_text('login').click()
         time.sleep(1)

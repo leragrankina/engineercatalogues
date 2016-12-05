@@ -124,3 +124,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = './images/'
 LOGIN_REDIRECT_URL = 'index'
 ACCOUNT_ACTIVATION_DAYS = 7
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'leragrankina@gmail.com'
+EMAIL_HOST_PASSWORD = '11le96ra'
