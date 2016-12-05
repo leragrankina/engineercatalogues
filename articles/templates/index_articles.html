@@ -1,7 +1,6 @@
-﻿<html>
-<head>
-<title>Статьи "В помощь конструктору"</title></head>
-{% include 'nav.html' %}
+﻿{% extends 'base.html' %}
+{% block title %}Статьи "В помощь конструктору"{% endblock %}
+{% block content %}
 <table id="articles_list">
     {% for article in articles %}
     <tr>
@@ -10,4 +9,4 @@
     </tr>
     {% endfor %}
 </table>
-</html>
+{% endblock %}

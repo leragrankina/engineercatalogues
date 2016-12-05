@@ -7,13 +7,13 @@ class Article(models.Model):
     text = models.TextField(default='')
     date_written = models.DateField(default=datetime.now)
 
-    def __repr__(self):
-        return 'Article: ' + self.title + ', ' + self.text
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
     text = models.TextField(default='')
     article = models.ForeignKey(Article)
 
-    def __repr__(self):
+    def __str__(self):
         return self.text

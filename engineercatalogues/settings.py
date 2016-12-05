@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'articles'
+    'tinymce',
+    'articles',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
 MEDIA_ROOT = './images/'
+
 LOGIN_REDIRECT_URL = 'index'
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -130,3 +133,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leragrankina@gmail.com'
 EMAIL_HOST_PASSWORD = '11le96ra'
+
+TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
+                          'height': "500",
+                          'width': "800",
+                          'content_css': ['/static/articles/style.css'],
+                          'theme_advanced_location': "top",
+                          'theme_advanced_buttons1': "undo,redo,|"
+                                                     ",bold,italic,underline,|"
+                                                     ",justifyleft,justifycenter,justifyright,alignjustify,|"
+                                                     ",bullist,numlist,outdent,indent"}
+
