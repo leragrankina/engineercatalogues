@@ -24,14 +24,14 @@ class IndexPage(TestCase):
 
     def test_home_page_returns_correct_view(self):
         response = self.client.get(reverse_lazy('index'))
-        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'articles/index.html')
 
     def test_articles_resolves_to_articles_list(self):
         self.compare_resolved_to_func('/articles/', views.ArticleList.as_view())
 
     def test_articles_page_returns_articles(self):
         response = self.client.get('/articles/')
-        self.assertTemplateUsed(response, 'index_articles.html')
+        self.assertTemplateUsed(response, 'articles/index_articles.html')
 
 
 class ArticleDetailPage(TestCase):
@@ -155,7 +155,6 @@ class CommentTest(TestCase):
         self.assertFalse('delete' in response)
 
     def test_can_delete_only_with_post(self):
-        self.client.login(username='me', password='me')
         self.client.get(reverse('articles:delete_comment', args=[self.comment.pk]))
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertTrue(self.comment.text in response)
@@ -163,8 +162,46 @@ class CommentTest(TestCase):
     def test_can_update_comment(self):
         self.client.post(reverse('articles:update_comment', args=[self.comment.pk]), {'id_text': 'UPD'})
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
-        print(response)
         self.assertTrue('UPD' in response)
+
+    def test_can_update_with_get(self):
+        self.client.get(reverse('articles:update_comment', args=[self.comment.pk]), {'id_text': 'UPD'})
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
+        self.assertFalse('UPD' in response)
+
+    def test_cannot_update_anothers_comment(self):
+        self.client.login(username='me', password='me')
+        self.client.post(reverse('articles:update_comment', args=[self.comment.pk]), {'id_text': 'UPD'})
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
+        self.assertFalse('UPD' in response)
+
+
+class TestAuthentification(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='test')
+        self.user.set_password('pass')
+        self.user.save()
+
+        self.article = Article.objects.create(title='test', text='article text')
+        self.article.save()
+
+        self.comment = Comment.objects.create(text='comment', article=self.article, created_by=self.user)
+        self.comment.save()
+
+        self.client.login(username='test', password='pass')
+
+    def test_authorized_can_add_comments(self):
+        response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
+        self.assertIn('comment_input', response)
+
+    def test_unauthorized_cannot_add_comments(self):
+        self.client.logout()
+        response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
+        self.assertNotIn('comment_input', response)
+
+    def test_logout_link(self):
+        response = self.client.get(reverse_lazy('index')).content.decode('UTF-8')
+        self.client.get()
 
 
 class TestAuthentification(TestCase):
