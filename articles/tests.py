@@ -145,9 +145,9 @@ class CommentTest(TestCase):
         self.assertEqual(self.comment.article.text, self.article.text)
 
     def test_can_delete_comment(self):
+        self.client.login(username='other', password='other')
         self.client.post(reverse('articles:delete_comment', args=[self.comment.pk]))
-        response = self.client.get(reverse('articles:detail', args=[self.article.pk]))\
-            .content.decode('UTF-8')
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertFalse(self.comment.text in response)
 
     def test_can_delete_only_my_comment(self):

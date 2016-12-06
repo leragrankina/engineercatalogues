@@ -29,6 +29,6 @@
     <input type="submit" value="Submit">
 </form>
     {% else %}
-    <p>You must be logged in to add comments</p>
+    <p>You must be <a href="{% url 'auth_login' %}">logged in</a> to add comments</p>
 {% endif %}
 {% endblock %}

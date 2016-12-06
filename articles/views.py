@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, HttpResponseRedirect, Http404
+from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse, reverse_lazy
 
 from .models import Article, Comment
@@ -28,9 +28,14 @@ def save_comment(request, pk):
     return HttpResponseRedirect(reverse('articles:detail', args=(pk,)))
 
 
-def delete_comment(request, pk):
-    comment = Comment.objects.get(pk=pk)
-    article_pk = comment.article.pk
-    if request.method == 'POST':
-        comment.delete()
-    return HttpResponseRedirect(reverse('articles:detail', args=(article_pk,)))
+class CommentDelete(DeleteView):
+    model = Comment
+
+    def get_object(self, queryset=None):
+        obj = super(CommentDelete, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
+
+    def get_success_url(self):
+        return reverse_lazy('articles:detail', args=(self.get_object().article.pk,))
