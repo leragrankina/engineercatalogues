@@ -8,7 +8,18 @@
 </div>
 {% if article.comment_set %}
     {% for comment in article.comment_set.all %}
-        <p class="comment">{{ comment.text }}</p>
+        <div class="comment">
+            <p>{{ comment.text }}</p>
+            {% if comment.created_by == user %}
+                <p>
+                    <a href="#">update</a>
+                    <form method="post" action="{% url 'articles:delete_comment' comment.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="delete">
+                    </form>
+                </p>
+            {% endif %}
+        </div>
     {% endfor %}
 {% endif %}
 {% if user.is_authenticated %}

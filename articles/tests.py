@@ -39,6 +39,12 @@ class ArticleDetailPage(TestCase):
         self.article = Article(text='text', title='title')
         self.article.save()
 
+        self.user = User(username='test')
+        self.user.set_password('test')
+        self.user.save()
+
+        self.client.login(username='test', password='test')
+
     def test_article_resolves_to_html(self):
         found = urlresolvers.resolve('/articles/1')
         self.assertEqual(views.ArticleDetail.as_view().__name__, found.func.__name__)
@@ -48,15 +54,13 @@ class ArticleDetailPage(TestCase):
         self.assertIn(self.article.text, response)
 
     def test_can_save_comment(self):
-        request = HttpRequest()
-        request.POST['comment_text'] = 'Good article'
-        views.save_comment(request, self.article.pk)
-        response = self.client.get('/articles/%d'%self.article.id).content.decode('UTF-8')
+        self.client.post(reverse('articles:add_comment', args=[self.article.pk]), {'comment_text': 'Good article'})
+        response = self.client.get('/articles/%d' % self.article.id).content.decode('UTF-8')
         self.assertIn('Good article', response)
 
     def test_prints_all_comments_in_db(self):
-        Comment(text='First comment', article=self.article).save()
-        Comment(text='Second comment', article=self.article).save()
+        Comment(text='First comment', article=self.article, created_by=self.user).save()
+        Comment(text='Second comment', article=self.article, created_by=self.user).save()
         response = self.client.get('/articles/' + str(self.article.pk)).content.decode('UTF-8')
         for text in map(lambda c: c.text, Comment.objects.all()):
             self.assertIn(text, response)
@@ -119,8 +123,19 @@ class CommentTest(TestCase):
     def setUp(self):
         self.article = Article(title='First', text='First article')
         self.article.save()
-        self.comment = Comment(text='Good article', article=Article.objects.first())
+
+        self.me = User.objects.create(username='me')
+        self.me.set_password('me')
+        self.me.save()
+
+        self.other = User.objects.create(username='other')
+        self.other.set_password('other')
+        self.other.save()
+
+        self.comment = Comment(text='Good article', article=self.article, created_by=self.other)
         self.comment.save()
+
+        self.client.login(username='me', password='me')
 
     def test_comment_text(self):
         self.assertEqual(Comment.objects.all().count(), 1)
@@ -128,6 +143,21 @@ class CommentTest(TestCase):
 
     def test_article_field(self):
         self.assertEqual(self.comment.article.text, self.article.text)
+
+    def test_can_delete_comment(self):
+        self.client.post(reverse('articles:delete_comment', args=[self.comment.pk]))
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk]))\
+            .content.decode('UTF-8')
+        self.assertFalse(self.comment.text in response)
+
+    def test_can_delete_only_my_comment(self):
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
+        self.assertFalse('delete' in response)
+
+    def test_can_delete_only_with_post(self):
+        self.client.get(reverse('articles:delete_comment', args=[self.comment.pk]))
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
+        self.assertTrue(self.comment.text in response)
 
 
 class TestAuthentification(TestCase):
@@ -139,7 +169,7 @@ class TestAuthentification(TestCase):
         self.article = Article.objects.create(title='test', text='article text')
         self.article.save()
 
-        self.comment = Comment.objects.create(text='comment', article=self.article)
+        self.comment = Comment.objects.create(text='comment', article=self.article, created_by=self.user)
         self.comment.save()
 
         self.client.login(username='test', password='pass')
@@ -161,3 +191,5 @@ class TestAuthentification(TestCase):
         response = self.client.post(reverse_lazy('auth_login'), kwargs={'username': 'wrong', 'password': 'wrong'})\
             .content.decode('UTF-8')
         self.assertIn('User not found', response)
+
+

@@ -7,20 +7,34 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 
-from articles.models import Article
+from articles.models import Article, Comment
 
 
 class NewVisitorTest(LiveServerTestCase):
+    @property
+    def comments_count(self):
+        return len(self.browser.find_elements_by_class_name('comment'))
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
+
         self.first_article = Article(text='First ever article', title='First Article')
         self.first_article.save()
         self.second_article = Article(text='Second article', title='Second Article')
         self.second_article.save()
-        self.user = User.objects.create(username='andrew')
-        self.user.set_password('leralera')
+
+        self.user = User.objects.create(username='other')
+        self.user.set_password('other')
         self.user.save()
+
+        self.andrew = User(username='andrew')
+        self.andrew.set_password('leralera')
+        self.andrew.save()
+
+        self.comment = Comment.objects.create(text='comment not owned by Andrew'
+                                              , article=self.first_article
+                                              , created_by=self.user)
 
     def tearDown(self):
         self.browser.quit()
@@ -88,8 +102,9 @@ class NewVisitorTest(LiveServerTestCase):
         #He enters a text Good article
         inputbox.send_keys('Good article')
         inputbox.send_keys(Keys.ENTER)
-        comments = self.browser.find_elements_by_class_name('comment')
-        self.assertTrue('Good article' in list(map(lambda c: c.text, comments)))
+        time.sleep(0.5)
+        self.assertIn('Good article', self.browser.find_elements_by_class_name('comment')[-1].text)
+
 
         #He again enters text
         inputbox = self.browser.find_element_by_id('comment_input')
@@ -97,17 +112,37 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(2)
         comments = self.browser.find_elements_by_class_name('comment')
-        comments_texts = list(map(lambda c: c.text, comments))
-        self.assertTrue('Really good article' in comments_texts)
-        self.assertTrue('Good article' in comments_texts)
+        self.assertIn('Really good article', self.browser.find_element_by_tag_name('body').text)
+        self.assertIn('Good article', self.browser.find_element_by_tag_name('body').text)
+
+        #Andrew wants to delete a comment
+        self.browser.find_element_by_partial_link_text('Articles').click()
+        self.browser.find_element_by_partial_link_text('First').click()
+        time.sleep(0.5)
+        old_count = self.comments_count
+        self.browser.find_element_by_css_selector('input[type="submit"]').click()
+        time.sleep(1)
+        new_count = self.comments_count
+        self.assertEqual(new_count, old_count - 1)
+
+        #He cannot delete a comment not posted by himself
+        comment_div = self.browser.find_elements_by_class_name('comment')[0]
+        try:
+            comment_div.find_element_by_partial_link_text('delete')
+            self.fail('Andrew can delete not his comment')
+        except NoSuchElementException:
+            pass
 
         #Comments are displayed only for current article
         self.browser.find_element_by_partial_link_text('Articles').click()
-        time.sleep(1)
         self.browser.find_element_by_partial_link_text('Second').click()
         time.sleep(1)
-        comments = self.browser.find_elements_by_class_name('comment')
-        self.assertEqual(len(comments), 0)
+        self.assertEqual(self.comments_count, 0)
+
+        #Andrew wants to update a comment
+        """self.browser.find_element_by_partial_link_text('update')
+        self.browser.find_element_by_id('comment_update').send_keys('Added text'+Keys.ENTER)
+        self.assertTrue('Added text' in comment.text)"""
 
         #Andrew wants to log out
         self.browser.find_element_by_partial_link_text('logout').click()
