@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from . import views
 from .models import Article, Comment
@@ -43,6 +44,10 @@ class ArticleDetailPage(TestCase):
         self.user.set_password('test')
         self.user.save()
 
+        Comment(text='First comment', article=self.article, created_by=self.user).save()
+        self.comment = Comment(text='Second comment', article=self.article, created_by=self.user)
+        self.comment.save()
+
         self.client.login(username='test', password='test')
 
     def test_article_resolves_to_html(self):
@@ -53,17 +58,15 @@ class ArticleDetailPage(TestCase):
         response = self.client.get('/articles/' + str(self.article.pk)).content.decode('UTF-8')
         self.assertIn(self.article.text, response)
 
-    def test_can_save_comment(self):
-        self.client.post(reverse('articles:add_comment', args=[self.article.pk]), {'comment_text': 'Good article'})
-        response = self.client.get('/articles/%d' % self.article.id).content.decode('UTF-8')
-        self.assertIn('Good article', response)
-
     def test_prints_all_comments_in_db(self):
-        Comment(text='First comment', article=self.article, created_by=self.user).save()
-        Comment(text='Second comment', article=self.article, created_by=self.user).save()
         response = self.client.get('/articles/' + str(self.article.pk)).content.decode('UTF-8')
         for text in map(lambda c: c.text, Comment.objects.all()):
             self.assertIn(text, response)
+
+    def test_comment_contains_author_and_date(self):
+        response = self.client.get(reverse('articles:detail', args=(self.article.pk,))).content.decode('UTF-8')
+        self.assertIn('test', response)
+        self.assertIn(self.comment.datetime_posted.astimezone().strftime("%d %B, %Y %H:%M"), response)
 
 
 class ArticleListPage(TestCase):
@@ -175,6 +178,11 @@ class CommentTest(TestCase):
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertFalse('UPD' in response)
 
+    def test_can_save_comment(self):
+        self.client.post(reverse('articles:add_comment', args=[self.article.pk]), {'comment_text': 'Good article'})
+        response = self.client.get('/articles/%d' % self.article.id).content.decode('UTF-8')
+        self.assertIn('Good article', response)
+
 
 class TestAuthentification(TestCase):
     def setUp(self):
@@ -191,7 +199,7 @@ class TestAuthentification(TestCase):
         self.client.login(username='test', password='pass')
 
     def test_authorized_can_add_comments(self):
-        response = self.client.get(reverse_lazy('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk, ])).content.decode('UTF-8')
         self.assertIn('comment_input', response)
 
     def test_unauthorized_cannot_add_comments(self):

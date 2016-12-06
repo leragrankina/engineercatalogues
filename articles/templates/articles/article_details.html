@@ -9,6 +9,7 @@
 {% if article.comment_set %}
     {% for comment in article.comment_set.all %}
         <div class="comment">
+        <p>{{ comment.created_by.username }} posted at {{ comment.datetime_posted | date:"d F, Y H:i"}}</p>
             {% if comment.created_by == user %}
                 <p>
                 <form method="post" action="{% url 'articles:update_comment' comment.pk %}">
@@ -21,6 +22,8 @@
                         <input type="submit" value="delete">
                     </form>
                 </p>
+                {% else %}
+                <p>{{ comment.text }}</p>
             {% endif %}
         </div>
     {% endfor %}

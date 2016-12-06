@@ -103,7 +103,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Good article')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
-        self.assertIn('Good article', self.browser.find_elements_by_class_name('comment')[-1].get_attribute('innerHTML'))
+        comment = self.browser.find_elements_by_class_name('comment')[-1].get_attribute('innerHTML')
+        self.assertIn('Good article', comment)
 
 
         #He again enters text
