@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, Http404
-from django.views.generic import ListView, DetailView, DeleteView
+from django.shortcuts import render, HttpResponseRedirect, Http404, HttpResponse
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView
 from django.urls import reverse, reverse_lazy
 
 from .models import Article, Comment
@@ -39,3 +39,11 @@ class CommentDelete(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('articles:detail', args=(self.get_object().article.pk,))
+
+
+def update_comment(request, pk):
+    comment_text = request.POST.get('id_text', '')
+    comment = Comment.objects.get(pk=pk)
+    comment.text = comment_text
+    comment.save()
+    return HttpResponseRedirect(reverse_lazy('articles:detail', args=(comment.article.pk,)))

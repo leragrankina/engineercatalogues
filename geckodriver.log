@@ -1767,3 +1767,99 @@ JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-1
 1481021682529	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49304
 1481021685355	Marionette	INFO	Listening on port 49304
 JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481023981035	geckodriver	INFO	Listening on 127.0.0.1:51950
+1481023982920	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.dYGim992vGri
+1481023982935	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481023982957	geckodriver::marionette	INFO	Connecting to Marionette on localhost:51957
+1481023993404	Marionette	INFO	Listening on port 51957
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481024056559	geckodriver	INFO	Listening on 127.0.0.1:52124
+1481024058551	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.VxC5GjCwlVey
+1481024058560	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481024058572	geckodriver::marionette	INFO	Connecting to Marionette on localhost:52140
+1481024063053	Marionette	INFO	Listening on port 52140
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481025967401	geckodriver	INFO	Listening on 127.0.0.1:54147
+1481025969348	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.Y9ndPlF6gQnW
+1481025969382	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481025969394	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54157
+1481025972902	Marionette	INFO	Listening on port 54157
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026186554	geckodriver	INFO	Listening on 127.0.0.1:54512
+1481026188529	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.tfu9BhxsKonZ
+1481026188538	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026188549	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54518
+1481026191328	Marionette	INFO	Listening on port 54518
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026266630	geckodriver	INFO	Listening on 127.0.0.1:54690
+1481026268620	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.l1ZpnFvPzldn
+1481026268629	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026268640	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54696
+1481026270793	Marionette	INFO	Listening on port 54696
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026338284	geckodriver	INFO	Listening on 127.0.0.1:54840
+1481026340274	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.l6NKtTrPn4KQ
+1481026340287	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026340303	geckodriver::marionette	INFO	Connecting to Marionette on localhost:54850
+1481026342420	Marionette	INFO	Listening on port 54850
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026704602	geckodriver	INFO	Listening on 127.0.0.1:55205
+1481026706590	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.b2sPpPlv1xlT
+1481026706600	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026706610	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55213
+1481026709172	Marionette	INFO	Listening on port 55213
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026844849	geckodriver	INFO	Listening on 127.0.0.1:55456
+1481026846834	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.8QOn2ltuPh0e
+1481026846844	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026846854	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55464
+1481026849455	Marionette	INFO	Listening on port 55464
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026924157	geckodriver	INFO	Listening on 127.0.0.1:55620
+1481026926171	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.yl6L6Au7hh7F
+1481026926180	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026926192	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55628
+1481026928129	Marionette	INFO	Listening on port 55628
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481026988736	geckodriver	INFO	Listening on 127.0.0.1:55763
+1481026990726	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.M6WusLKpLi4u
+1481026990739	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481026990754	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55770
+1481026992710	Marionette	INFO	Listening on port 55770
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027143778	geckodriver	INFO	Listening on 127.0.0.1:55989
+1481027145767	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.79vdQVGTEU5t
+1481027145779	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027145794	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55999
+1481027147982	Marionette	INFO	Listening on port 55999
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027211654	geckodriver	INFO	Listening on 127.0.0.1:56220
+1481027213567	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.2KHhr1YLJroU
+1481027213609	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027213626	geckodriver::marionette	INFO	Connecting to Marionette on localhost:56227
+1481027216165	Marionette	INFO	Listening on port 56227
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027252720	geckodriver	INFO	Listening on 127.0.0.1:56362
+1481027254534	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.KneQg7y6G9Wt
+1481027254543	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027254554	geckodriver::marionette	INFO	Connecting to Marionette on localhost:56368
+1481027256802	Marionette	INFO	Listening on port 56368
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027545836	geckodriver	INFO	Listening on 127.0.0.1:56799
+1481027547781	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.MDP4y0yUoXVs
+1481027547790	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027547802	geckodriver::marionette	INFO	Connecting to Marionette on localhost:56806
+1481027554349	Marionette	INFO	Listening on port 56806
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027643197	geckodriver	INFO	Listening on 127.0.0.1:57019
+1481027645058	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.BD5idmSBXb7a
+1481027645069	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027645081	geckodriver::marionette	INFO	Connecting to Marionette on localhost:57025
+1481027647441	Marionette	INFO	Listening on port 57025
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+1481027725556	geckodriver	INFO	Listening on 127.0.0.1:57185
+1481027727550	mozprofile::profile	INFO	Using profile path C:\Users\9364~1\AppData\Local\Temp\rust_mozprofile.q6KqnUgw0p1O
+1481027727559	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481027727570	geckodriver::marionette	INFO	Connecting to Marionette on localhost:57193
+1481027728998	Marionette	INFO	Listening on port 57193
+JavaScript warning: https://normandy.cdn.mozilla.net/static/bundles/selfrepair-133d4d7c9de72117ee8e.24ec5279eef1.js, line 7: mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create

@@ -102,8 +102,8 @@ class NewVisitorTest(LiveServerTestCase):
         #He enters a text Good article
         inputbox.send_keys('Good article')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(0.5)
-        self.assertIn('Good article', self.browser.find_elements_by_class_name('comment')[-1].text)
+        time.sleep(1)
+        self.assertIn('Good article', self.browser.find_elements_by_class_name('comment')[-1].get_attribute('innerHTML'))
 
 
         #He again enters text
@@ -112,15 +112,15 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(2)
         comments = self.browser.find_elements_by_class_name('comment')
-        self.assertIn('Really good article', self.browser.find_element_by_tag_name('body').text)
-        self.assertIn('Good article', self.browser.find_element_by_tag_name('body').text)
+        self.assertIn('Really good article', self.browser.find_element_by_tag_name('body').get_attribute('innerHTML'))
+        self.assertIn('Good article', self.browser.find_element_by_tag_name('body').get_attribute('innerHTML'))
 
         #Andrew wants to delete a comment
         self.browser.find_element_by_partial_link_text('Articles').click()
         self.browser.find_element_by_partial_link_text('First').click()
         time.sleep(0.5)
         old_count = self.comments_count
-        self.browser.find_element_by_css_selector('input[type="submit"]').click()
+        self.browser.find_element_by_css_selector('input[value="delete"]').click()
         time.sleep(1)
         new_count = self.comments_count
         self.assertEqual(new_count, old_count - 1)
@@ -133,16 +133,18 @@ class NewVisitorTest(LiveServerTestCase):
         except NoSuchElementException:
             pass
 
+        #Andrew wants to update a comment
+        comment = self.browser.find_elements_by_class_name('comment')[1]
+        comment.find_element_by_id('comment_update').send_keys('\nUPD: updated' + Keys.ENTER)
+        time.sleep(0.5)
+        comment = self.browser.find_elements_by_class_name('comment')[1]
+        self.assertIn('UPD', comment.get_attribute('innerHTML'))
+
         #Comments are displayed only for current article
         self.browser.find_element_by_partial_link_text('Articles').click()
         self.browser.find_element_by_partial_link_text('Second').click()
         time.sleep(1)
         self.assertEqual(self.comments_count, 0)
-
-        #Andrew wants to update a comment
-        """self.browser.find_element_by_partial_link_text('update')
-        self.browser.find_element_by_id('comment_update').send_keys('Added text'+Keys.ENTER)
-        self.assertTrue('Added text' in comment.text)"""
 
         #Andrew wants to log out
         self.browser.find_element_by_partial_link_text('logout').click()

@@ -135,7 +135,7 @@ class CommentTest(TestCase):
         self.comment = Comment(text='Good article', article=self.article, created_by=self.other)
         self.comment.save()
 
-        self.client.login(username='me', password='me')
+        self.client.login(username='other', password='other')
 
     def test_comment_text(self):
         self.assertEqual(Comment.objects.all().count(), 1)
@@ -145,19 +145,26 @@ class CommentTest(TestCase):
         self.assertEqual(self.comment.article.text, self.article.text)
 
     def test_can_delete_comment(self):
-        self.client.login(username='other', password='other')
         self.client.post(reverse('articles:delete_comment', args=[self.comment.pk]))
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertFalse(self.comment.text in response)
 
     def test_can_delete_only_my_comment(self):
+        self.client.login(username='me', password='me')
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertFalse('delete' in response)
 
     def test_can_delete_only_with_post(self):
+        self.client.login(username='me', password='me')
         self.client.get(reverse('articles:delete_comment', args=[self.comment.pk]))
         response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
         self.assertTrue(self.comment.text in response)
+
+    def test_can_update_comment(self):
+        self.client.post(reverse('articles:update_comment', args=[self.comment.pk]), {'id_text': 'UPD'})
+        response = self.client.get(reverse('articles:detail', args=[self.article.pk])).content.decode('UTF-8')
+        print(response)
+        self.assertTrue('UPD' in response)
 
 
 class TestAuthentification(TestCase):

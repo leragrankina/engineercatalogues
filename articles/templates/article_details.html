@@ -9,10 +9,13 @@
 {% if article.comment_set %}
     {% for comment in article.comment_set.all %}
         <div class="comment">
-            <p>{{ comment.text }}</p>
             {% if comment.created_by == user %}
                 <p>
-                    <a href="#">update</a>
+                <form method="post" action="{% url 'articles:update_comment' comment.pk %}">
+                {% csrf_token %}
+                    <input type="text" id="comment_update" value="{{ comment.text }}" name="id_text">
+                <input type="submit" value="update">
+                </form>
                     <form method="post" action="{% url 'articles:delete_comment' comment.pk %}">
                         {% csrf_token %}
                         <input type="submit" value="delete">
