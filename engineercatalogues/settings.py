@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,8 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-MEDIA_ROOT = './images/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'index'
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -133,7 +137,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leragrankina@gmail.com'
 EMAIL_HOST_PASSWORD = '11le96ra'
-
 TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'height': "500",
                           'width': "800",
@@ -147,3 +150,12 @@ TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'theme_advanced_buttons2': "tablecontrols",
                           }
 
+FILEBROWSER_DIRECTORY = 'uploads/'
+FILEBROWSER_VIERSIONS_BASEDIR = '_versions'
+FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
+FILEBROWSER_MEDIA_URL = MEDIA_URL
+FILEBROWSER_MEDIA_ROOT = MEDIA_ROOT
+FILEBROWSER_STATIC_ROOT = STATIC_ROOT
+FILEBROWSER_STATIC_URL = STATIC_URL
+FILEBROWSER_URL_FILEBROWSER_MEDIA = MEDIA_URL
+FILEBROWSER_PATH_FILEBROWSER_MEDIA = MEDIA_ROOT
