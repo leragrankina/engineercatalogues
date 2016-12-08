@@ -125,6 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_ROOT = STATIC_ROOT
+STATICFILES_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -137,6 +139,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leragrankina@gmail.com'
 EMAIL_HOST_PASSWORD = '11le96ra'
+TINYMCE_JS_ROOT = '/static/tiny_mce'
+TINYMCE_JS_URL = os.path.join(STATIC_URL, 'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js')
 TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'height': "500",
                           'width': "800",
