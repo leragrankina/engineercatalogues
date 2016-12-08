@@ -139,19 +139,19 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'leragrankina@gmail.com'
 EMAIL_HOST_PASSWORD = '11le96ra'
-TINYMCE_JS_ROOT = '/static/tiny_mce'
+TINYMCE_JS_ROOT = '/grappelli/tinymce/jscripts/tiny_mce'
 TINYMCE_JS_URL = os.path.join(STATIC_URL, 'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js')
 TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'height': "500",
                           'width': "800",
                           'content_css': ['/static/articles/style.css'],
-                          'plugins': 'table',
+                          'plugins': 'paste,table',
                           'theme_advanced_location': "top",
                           'theme_advanced_buttons1': "undo,redo,|"
                                                      ",bold,italic,underline,|"
                                                      ",justifyleft,justifycenter,justifyright,alignjustify,|"
                                                      ",bullist,numlist,outdent,indent",
-                          'theme_advanced_buttons2': "tablecontrols",
+                          'theme_advanced_buttons2': "tablecontrols,|,image",
                           }
 
 FILEBROWSER_DIRECTORY = 'uploads/'
