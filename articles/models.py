@@ -2,14 +2,24 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+from filebrowser.fields import FileBrowseField
+from filebrowser.settings import ADMIN_THUMBNAIL
+
 
 class Article(models.Model):
     title = models.CharField(max_length=200, default='')
     text = models.TextField(default='')
     date_written = models.DateField(default=timezone.now)
+    cover = FileBrowseField("Image", max_length=200, directory="/uploads", blank=True)
 
     def __str__(self):
         return self.title
+
+    @property
+    def thumbnail(self):
+        if self.cover:
+            return self.cover.version_generate(ADMIN_THUMBNAIL).url
+        return ""
 
 
 class Comment(models.Model):

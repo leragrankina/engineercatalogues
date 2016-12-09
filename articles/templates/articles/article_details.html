@@ -2,6 +2,7 @@
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
 <div class="article_container">
+
     <h1>{{ article.title }}</h1>
     <p>{{ article.date_written }}</p>
     {{ article.text|safe }}

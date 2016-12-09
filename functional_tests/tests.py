@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
+from filebrowser.base import FileObject
 
 from articles.models import Article, Comment
 
@@ -20,6 +21,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.implicitly_wait(3)
 
         self.first_article = Article(text='First ever article', title='First Article')
+        self.first_article.cover = FileObject('uploads/bush.jpg')
         self.first_article.save()
         self.second_article = Article(text='Second article', title='Second Article')
         self.second_article.save()
@@ -58,11 +60,17 @@ class NewVisitorTest(LiveServerTestCase):
         articles = self.browser.find_elements_by_tag_name("tr")
         self.assertEqual(len(articles), 2)
         self.assertIn('First Article', articles[0].text)
+        img = articles[0].find_element_by_tag_name('img')
+        self.browser.execute_script('return arguments[0].complete && \
+        typeof arguments[0].naturalWidth != "undefined" && \
+        arguments[0].naturalWidth > 0', img)
+
+
 
         #He wants to know when first article was written
         first_article = articles[0]
         cells = first_article.find_elements_by_tag_name('td')
-        second_cell = cells[1].text
+        second_cell = articles[1].text
         self.assertRegex(second_cell, '\d{2} [A-zА-я]+, \d{4}')
 
         #He clicks the title of an article

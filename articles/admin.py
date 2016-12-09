@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib import admin
-from django.conf import settings
 
 from tinymce.widgets import TinyMCE
+from filebrowser.fields import FileBrowseFormField
 
 from .models import Article, Comment
 
@@ -11,10 +11,11 @@ from .models import Article, Comment
 
 class AdminForm(forms.ModelForm):
     text = forms.CharField(widget=TinyMCE)
+    thumbnail = FileBrowseFormField
 
     class Meta:
         model = Article
-        fields = ['title', 'text', 'date_written']
+        fields = ['title', 'text', 'date_written', 'cover']
 
 
 class CommentInlines(admin.TabularInline):

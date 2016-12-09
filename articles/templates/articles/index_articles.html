@@ -1,9 +1,15 @@
 ﻿{% extends 'articles/base.html' %}
+{% load fb_versions %}
 {% block title %}Статьи "В помощь конструктору"{% endblock %}
 {% block content %}
 <table id="articles_list">
     {% for article in articles %}
     <tr>
+    {% if article.cover %}
+        <td><img src="{% version article.cover 'small' %}"></td>
+    {% else %}
+        <td></td>
+    {% endif %}
         <td><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></td>
         <td>{{ article.date_written | date:"d F, Y"}}</td>
     </tr>

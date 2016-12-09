@@ -8,6 +8,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+from filebrowser.base import FileObject
+
 from . import views
 from .models import Article, Comment
 
@@ -72,6 +74,7 @@ class ArticleDetailPage(TestCase):
 class ArticleListPage(TestCase):
     def setUp(self):
         self.first = Article.objects.create(text='Linear Ball Bearings', title='First Article')
+        self.first.cover = FileObject('uploads/bush.jpg')
         self.first.save()
         self.second = Article.objects.create(text='Some second article', title='Second Article')
         self.second.save()
@@ -89,6 +92,10 @@ class ArticleListPage(TestCase):
         article_detail_url = reverse('articles:detail', args=[self.first.pk])
 
         self.assertRegex(response, '<a href="%s"'%article_detail_url)
+
+    def test_img_tag(self):
+        response = self.client.get('/articles/').content.decode('UTF-8')
+        self.assertRegex(response, '<img src=".*bush.*">')
 
 
 class ArticleModelTests(TestCase):
