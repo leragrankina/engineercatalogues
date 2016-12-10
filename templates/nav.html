@@ -1,5 +1,6 @@
 {% load static %}
 {% if user.is_authenticated %}
+    <p>You are logged in as {{ user.username }}</p>
     <a href="{% url 'auth_logout' %}">logout</a>
 {% else %}
     <p>
@@ -12,6 +13,7 @@
 		<li><a href="{% url 'index' %}" id="home_link">Home</a></li>
 		<li><a href="{% url 'articles:list' %}" id="articles_list_link">Articles</a></li>
 		<li><a href="{% url 'catalogues:index' %}" id="catalogues_list_link">Magazines</a></li>
+        <li><a href="{% url 'book:index' %}">Book</a></li>
 		<li><a href="html/firms.html">Firms</a></li>
 	</ul>
 </div>

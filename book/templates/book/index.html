@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Book{% endblock %}
+{% block content %}
+    <p>
+    <img src="/media/book_cover.jpg">
+    </p>
+    {% if error %}
+    <p>error.type</p>
+    {% endif %}
+    <form action="{% url 'book:charge' %}" method="POST">
+    {% csrf_token %}
+    <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_KwlKDB4YR0MesrHdTNJLFV0E"
+    data-amount="999"
+    data-name="Practical for machine details"
+    data-description="Buy book"
+    data-locale="auto"
+    data-shipping-address="true"
+    >
+    </script>
+    </form>
+{% endblock %}

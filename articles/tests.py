@@ -27,7 +27,7 @@ class IndexPage(TestCase):
 
     def test_home_page_returns_correct_view(self):
         response = self.client.get(reverse_lazy('index'))
-        self.assertTemplateUsed(response, 'articles/index.html')
+        self.assertTemplateUsed(response, 'index.html')
 
     def test_articles_resolves_to_articles_list(self):
         self.compare_resolved_to_func('/articles/', views.ArticleList.as_view())

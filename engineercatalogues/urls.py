@@ -21,6 +21,7 @@ from django.contrib import admin
 from filebrowser.sites import site
 
 from articles.views import index
+import book
 
 urlpatterns = [
     url(r'^admin/filebrowser/', include(site.urls)),
@@ -31,4 +32,5 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'^catalogues/', include('catalogues.urls', namespace='catalogues')),
+    url(r'^book/', include('book.urls', namespace='book'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

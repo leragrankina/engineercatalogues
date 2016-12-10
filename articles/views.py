@@ -6,7 +6,7 @@ from .models import Article, Comment
 
 
 def index(request):
-    return render(request, 'articles/index.html')
+    return render(request, 'index.html')
 
 
 class ArticleList(ListView):

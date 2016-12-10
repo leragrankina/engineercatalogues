@@ -5,7 +5,7 @@
     <title>Register</title>
 </head>
 <body>
-{% include 'articles/nav.html' %}
+{% include 'articles/../nav.html' %}
 <form method="post" action="{% url 'registration_register' %}">
     {% csrf_token %}
     {{ form.as_p }}

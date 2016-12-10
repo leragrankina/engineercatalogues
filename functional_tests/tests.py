@@ -65,8 +65,6 @@ class NewVisitorTest(LiveServerTestCase):
         typeof arguments[0].naturalWidth != "undefined" && \
         arguments[0].naturalWidth > 0', img)
 
-
-
         #He wants to know when first article was written
         first_article = articles[0]
         cells = first_article.find_elements_by_tag_name('td')
@@ -101,6 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         #He clicks article
         self.browser.find_element_by_id("articles_list_link").click()
+        time.sleep(0.5)
         self.browser.find_element_by_partial_link_text('First').click()
         time.sleep(1)
 
@@ -164,4 +163,11 @@ class NewVisitorTest(LiveServerTestCase):
         except NoSuchElementException:
             pass
 
+        #Andrew wants to see a Book tab
+        self.browser.find_element_by_partial_link_text('Book').click()
+
+        #He sees a book cover
+        self.browser.find_element_by_tag_name('img')
+
         self.fail('Work harder, bitch')
+
