@@ -8,7 +8,7 @@ from filebrowser.settings import ADMIN_THUMBNAIL
 
 class Article(models.Model):
     title = models.CharField(max_length=200, default='')
-    text = models.TextField(default='')
+    text = models.TextField(default='', blank=True)
     date_written = models.DateField(default=timezone.now)
     cover = FileBrowseField("Image", max_length=200, directory="/uploads", blank=True)
 

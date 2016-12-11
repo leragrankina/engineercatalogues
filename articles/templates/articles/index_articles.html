@@ -1,21 +1,47 @@
 ﻿{% extends 'base.html' %}
-{% block nav-art %}
-class="active"
-{% endblock %}
 {% load fb_versions %}
 {% block title %}Статьи "В помощь конструктору"{% endblock %}
 {% block content %}
-<table id="articles_list">
+    <div class="container">
+        <div class="row">
     {% for article in articles %}
-    <tr>
-    {% if article.cover %}
-        <td><img src="{% version article.cover 'small' %}"></td>
-    {% else %}
-        <td></td>
-    {% endif %}
-        <td><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></td>
-        <td>{{ article.date_written | date:"d F, Y"}}</td>
-    </tr>
+            <div class="col-xs-4 col-sm-3">
+                <div class="thumbnail">
+                <a href="{% url 'articles:detail' article.pk%}"
+                   {% if not article.text %}
+                        class="disabled"
+                   {% endif %} >
+                    {% if article.cover %}
+                        <img src="{% version article.cover 'small' %}">
+                    {% else %}
+                        <img src="/media/uploads/bush.jpg" class="img-responsive">
+                    {% endif %}
+                    <div class="caption">
+                        <h3>{{ article.title }}</h3>
+                        <p><span class="label label-danger">{{ article.date_written | date:"d F, Y"}}</span></p>
+                    </div>
+                </a>
+                </div>
+                {% comment %}
+                <div class="media">
+                        <a class="media-left" href="#">
+                            {% if article.cover %}
+                                     <img src="{% version article.cover 'small' %}">
+                                <img class="media-object" src="{{ article.cover.url }}">
+                            {% else %}
+                                <img class="media-object" src="/media/uploads/bush.jpg">
+                            {% endif %}
+                        </a>
+                <div class="media-body">
+                <h4 class="media-heading"><a href="{% url 'articles:detail' article.pk %}">
+                    {{ article.title }}</a>
+                </h4>
+                    {{ article.date_written | date:"d F, Y"}}
+                </div>
+                </div>
+                {% endcomment %}
+            </div>
     {% endfor %}
-</table>
+        </div>
+    </div>
 {% endblock %}

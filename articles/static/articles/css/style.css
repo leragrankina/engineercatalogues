@@ -26,5 +26,28 @@
 
 .navbar-inverse a.navbar-brand{
     padding: 5px 15px;
-    margin:0;
+}
+
+.jumbotron{
+    color: white;
+    background: #7f7cff; ;
+    margin-top: -20px;
+}
+
+.article{
+    min-height: 150px;
+}
+
+.thumbnail{
+    width: 250px;
+    height: 300px;
+}
+
+.thumbnail img{
+    min-height: 120px;
+    max-height: 120px;
+}
+
+.thumbnail a{
+    text-decoration: none;
 }
