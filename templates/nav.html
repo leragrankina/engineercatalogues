@@ -1,19 +1,41 @@
 {% load static %}
-{% if user.is_authenticated %}
-    <p>You are logged in as {{ user.username }}</p>
-    <a href="{% url 'auth_logout' %}">logout</a>
-{% else %}
-    <p>
-        <a href="{% url 'registration_register' %}">register</a>
-        <a href="{% url 'auth_login' %}">login</a>
-    </p>
-{% endif %}
-<div id="page_menu">
-	<ul id="menu">
-		<li><a href="{% url 'index' %}" id="home_link">Home</a></li>
-		<li><a href="{% url 'articles:list' %}" id="articles_list_link">Articles</a></li>
-		<li><a href="{% url 'catalogues:index' %}" id="catalogues_list_link">Magazines</a></li>
-        <li><a href="{% url 'book:index' %}">Book</a></li>
-		<li><a href="html/firms.html">Firms</a></li>
-	</ul>
+
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+        <a href="{% url 'index' %}" class="navbar-brand">
+            В помощь конструтору
+        </a>
 </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            {% if request.path == '/' %}
+                <li class="active">
+            {% else %}
+                <li>
+            {% endif %}
+            <a href="{% url 'index' %}" id="home_link">Главная</a></li>
+            {% if request.path == '/articles/' %}
+                <li class="active">
+            {% else %}
+                <li>
+            {% endif %}
+            <a href="{% url 'articles:list' %}" id="articles_list_link">Статьи</a></li>
+            {% if request.path == '/book/' %}
+                <li class="active">
+            {% else %}
+                <li>
+            {% endif %}
+            <a href="{% url 'book:index' %}">Книга</a></li>
+        </ul>
+    </div>
+</div>
+</nav>
+

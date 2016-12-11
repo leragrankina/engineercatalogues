@@ -4,12 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'articles/style.css' %}">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'articles/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/css/style.css' %}">
 </head>
 <body>
 {% include 'nav.html' %}
+{% if user.is_authenticated %}
+    <p>You are logged in as {{ user.username }}</p>
+    <a href="{% url 'auth_logout' %}">logout</a>
+{% else %}
+    <p>
+        <a href="{% url 'registration_register' %}">register</a>
+        <a href="{% url 'auth_login' %}">login</a>
+    </p>
+{% endif %}
 {% block content %}
 {% endblock %}
-
+<script src="{% static 'articles/js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'articles/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
