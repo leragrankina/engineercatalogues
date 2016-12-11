@@ -11,7 +11,7 @@
         <span class="icon-bar"></span>
     </button>
         <a href="{% url 'index' %}" class="navbar-brand">
-            <img src="/media/logo.jpg" height="42">
+            <img src="/media/logo.jpg" height="40" >
         </a>
 </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -36,10 +36,10 @@
             <a href="{% url 'book:index' %}">Книга</a></li>
         </ul>
     {% if user.is_authenticated %}
-        <p class="navbar-text navbar-right">Вы вошли как {{ user.username }} <a href="{% url 'auth_logout' %}"
+        <p class="navbar-text navbar-right">Вы вошли как {{ user.username }} <a href="{% url 'auth_logout' %}?next={{ request.path }}"
         class="btn btn-info navbar-btn">Выйти</a></p>
     {% else %}
-    <form class="navbar-form navbar-right" role="form" action="{% url 'auth_login' %}" method="post">
+    <form class="navbar-form navbar-right" role="form" action="{% url 'auth_login' %}?next={{ request.path }}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Логин" id="id_username" name="username">

@@ -132,8 +132,6 @@ STATICFILES_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
 ACCOUNT_ACTIVATION_DAYS = 7
 
 EMAIL_USE_TLS = True
