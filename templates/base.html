@@ -11,15 +11,6 @@
 </head>
 <body>
 {% include 'nav.html' %}
-{% if user.is_authenticated %}
-    <p>You are logged in as {{ user.username }}</p>
-    <a href="{% url 'auth_logout' %}">logout</a>
-{% else %}
-    <p>
-        <a href="{% url 'registration_register' %}">register</a>
-        <a href="{% url 'auth_login' %}">login</a>
-    </p>
-{% endif %}
 {% block content %}
 {% endblock %}
 <script src="{% static 'articles/js/jquery-3.1.1.min.js' %}"></script>
