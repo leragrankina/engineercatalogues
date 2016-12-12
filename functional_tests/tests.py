@@ -57,7 +57,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Статьи "В помощь конструктору"', self.browser.title)
 
         #He sees a list of titles
-        articles = self.browser.find_elements_by_tag_name("tr")
+        articles = self.browser.find_elements_by_class_name("thumbnail")
         self.assertEqual(len(articles), 2)
         self.assertIn('First Article', articles[0].text)
         img = articles[0].find_element_by_tag_name('img')
@@ -79,7 +79,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn(self.first_article.text, self.browser.find_element_by_tag_name('body').text)
 
         #He goes back to home page
-        self.browser.find_element_by_partial_link_text('Home').click()
+        self.browser.find_element_by_partial_link_text('Главная').click()
         time.sleep(1)
         self.assertHomePage()
 
@@ -92,8 +92,8 @@ class NewVisitorTest(LiveServerTestCase):
             pass
 
         #Andrew wants to log in
-        self.browser.find_element_by_partial_link_text('login').click()
-        time.sleep(1)
+        #self.browser.find_element_by_partial_link_text('login').click()
+        #time.sleep(1)
         self.browser.find_element_by_id('id_username').send_keys('andrew')
         self.browser.find_element_by_id('id_password').send_keys('leralera' + Keys.ENTER)
 
@@ -149,22 +149,22 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('UPD', comment.get_attribute('innerHTML'))
 
         #Comments are displayed only for current article
-        self.browser.find_element_by_partial_link_text('Articles').click()
+        self.browser.find_element_by_partial_link_text('Статьи').click()
         self.browser.find_element_by_partial_link_text('Second').click()
         time.sleep(1)
         self.assertEqual(self.comments_count, 0)
 
         #Andrew wants to log out
-        self.browser.find_element_by_partial_link_text('logout').click()
+        self.browser.find_element_by_partial_link_text('Выйти').click()
         time.sleep(1)
         try:
-            self.browser.find_element_by_partial_link_text('logout')
+            self.browser.find_element_by_partial_link_text('Выйти')
             self.fail('User must be logged out')
         except NoSuchElementException:
             pass
 
         #Andrew wants to see a Book tab
-        self.browser.find_element_by_partial_link_text('Book').click()
+        self.browser.find_element_by_partial_link_text('Книга').click()
 
         #He sees a book cover
         self.browser.find_element_by_tag_name('img')

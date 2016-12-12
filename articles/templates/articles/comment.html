@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load tz %}
+{% load custom_tags %}
+<p><strong>{{ comment.created_by.username }}</strong> <span class="text-muted">
+    {% language 'ru' %}
+        {% localtime on %}
+            {{ comment.datetime_posted | localtime | human_date }}</span>
+        {% endlocaltime %}
+    {% endlanguage %}</p>
+    <p>{{ comment.text }}</p>
+    {% if comment.created_by == user %}
+        <form method="post" action="{% url 'articles:update_comment' comment.pk %}" hidden>
+        {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control" id="comment_update" name="id_text">{{ comment.text }}</textarea>
+            </div>
+        <input type="submit" value="update" class="btn btn-link">
+        </form>
+        <form method="post" action="{% url 'articles:delete_comment' comment.pk %}" hidden>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link">
+                <i class="glyphicon glyphicon-remove"></i>
+            </button>
+        </form>
+    {% endif %}

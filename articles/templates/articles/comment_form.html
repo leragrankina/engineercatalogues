@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'articles:add_comment' article.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <textarea class="form-control" id="comment_input" name="comment_text" placeholder="Комментировать"></textarea>
+    </div>
+    <input type="submit" value="Опубликовать" class="btn btn-primary rounded">
+</form>

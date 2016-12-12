@@ -146,8 +146,10 @@ TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'width': "800",
                           'content_css': ['/static/articles/style.css'],
                           'plugins': 'paste,table',
+                          'block_formats': 'Paragraph=p;Header 1=h1;',
+                          'theme_advanced_blockformats':'p,h1,h2,h3,h4,h5',
                           'theme_advanced_location': "top",
-                          'theme_advanced_buttons1': "undo,redo,|"
+                          'theme_advanced_buttons1': "undo,redo,|,formatselect,|"
                                                      ",bold,italic,underline,|"
                                                      ",justifyleft,justifycenter,justifyright,alignjustify,|"
                                                      ",bullist,numlist,outdent,indent",

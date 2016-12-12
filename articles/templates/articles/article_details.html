@@ -1,41 +1,65 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
+{% load i18n %}
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
-<div class="article_container">
-
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.date_written }}</p>
+    <header class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+        <h1>{{ article.title }}</h1>
+            </div>
+        </div>
+    </div>
+    </header>
+    <div class="jumbotron jumbotron-inverse">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                {% language 'ru' %}
+                    <h3>{{ article.date_written | date:"d M, Y" }}</h3>
+                {% endlanguage %}
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+<div class="row">
+<div class="col-xs-2"></div>
+<div class="col-xs-8">
+<div class="article-text">
     {{ article.text|safe }}
+</div>
+</div>
+    <div class="col-xs-2"></div>
+</div>
+<div class="line"></div>
+<div class="row">
+    <div class="col-xs-2">
+        <p><strong><span class="dark-blue">Комментарии </span><span class="text-muted">({{ article.comment_set.count }})</span></strong></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-2">
+        {% if not user.is_authenticated %}
+            <p>Вы должны быть <a href="{% url 'auth_login' %}">зарегестрированы</a>, чтобы оставлять комментарии.</p>
+        {% else %}
+            <p><span class="text-muted">Вы вошли как<br></span><b>{{ user.username }}</b></p>
+        {% endif %}
+    </div>
+    <div class="col-xs-6 comment-col">
+        {% comment_form article %}
+    </div>
 </div>
 {% if article.comment_set %}
     {% for comment in article.comment_set.all %}
-        <div class="comment">
-        <p>{{ comment.created_by.username }} posted at {{ comment.datetime_posted | date:"d F, Y H:i"}}</p>
-            {% if comment.created_by == user %}
-                <p>
-                <form method="post" action="{% url 'articles:update_comment' comment.pk %}">
-                {% csrf_token %}
-                    <input type="text" id="comment_update" value="{{ comment.text }}" name="id_text">
-                <input type="submit" value="update">
-                </form>
-                    <form method="post" action="{% url 'articles:delete_comment' comment.pk %}">
-                        {% csrf_token %}
-                        <input type="submit" value="delete">
-                    </form>
-                </p>
-                {% else %}
-                <p>{{ comment.text }}</p>
-            {% endif %}
+        <div class="row comment-row">
+            <div class="col-xs-6 col-xs-offset-2 comment-col">
+                {% show_comment %}
+            </div>
         </div>
     {% endfor %}
 {% endif %}
-{% if user.is_authenticated %}
-<form method="POST" action="{% url 'articles:add_comment' article.id %}">
-    {% csrf_token %}
-    <input type="text" id="comment_input" name="comment_text">
-    <input type="submit" value="Submit">
-</form>
-    {% else %}
-    <p>You must be <a href="{% url 'auth_login' %}">logged in</a> to add comments</p>
-{% endif %}
+</div>
 {% endblock %}
+<script src="{% static 'articles/js/action.js' %}"></script>

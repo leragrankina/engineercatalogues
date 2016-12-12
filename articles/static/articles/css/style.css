@@ -1,3 +1,7 @@
+*{
+    font-family: 'Lazurski';
+}
+
 .navbar-inverse {
      background: #0F6BB2;
      font-size: 12pt;
@@ -30,7 +34,7 @@
 
 .jumbotron{
     color: white;
-    background: #7f7cff; ;
+    background: #931479;
     margin-top: -20px;
 }
 
@@ -39,15 +43,91 @@
 }
 
 .thumbnail{
-    width: 250px;
-    height: 300px;
 }
 
 .thumbnail img{
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 140px;
+    max-height: 140px;
+}
+
+.thumbnail .caption{
+    height: 140px;
+    background: #931479;;
+    color: white;
 }
 
 .thumbnail a{
     text-decoration: none;
+}
+
+@font-face{
+    font-family: 'Lazurski';
+    font-style: normal;
+    src: url('../fonts/Lazurski.ttf')
+}
+
+.article-text {
+    font-size: 14pt;
+}
+
+.line{
+    border-bottom: 1px #1A237E solid;
+    margin-bottom: 20px;
+}
+
+
+.article-text p{
+    margin-bottom: 14pt;
+}
+
+.article-text > p:first-child:first-letter{
+    font-size: 48pt;
+    color: #931479;
+    display:inline-block;
+    float: left;
+    line-height: 0.8em;
+    margin-right: 2px;
+}
+.aside{
+    position: absolute;
+    width: 16.6%;
+    padding-right: 30px;
+ }
+
+.date-written{
+    font-size: 12pt;
+}
+
+.jumbotron-inverse{
+    background: white;
+    color: #931479;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.dark-blue{
+    color: #1A237E;
+}
+
+.grey{
+    color: grey;
+}
+
+.rounded{
+    border-radius: 50px;
+}
+
+.dark-blue, .grey{
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.comment-col{
+    border-bottom: 1px #bcbcbc solid;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.comment-row:last-child .comment-col{
+    border-bottom: none;
 }

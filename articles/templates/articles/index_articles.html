@@ -1,4 +1,5 @@
 ﻿{% extends 'base.html' %}
+{% load i18n %}
 {% load fb_versions %}
 {% block title %}Статьи "В помощь конструктору"{% endblock %}
 {% block content %}
@@ -18,28 +19,12 @@
                     {% endif %}
                     <div class="caption">
                         <h3>{{ article.title }}</h3>
-                        <p><span class="label label-danger">{{ article.date_written | date:"d F, Y"}}</span></p>
+                        {% language 'ru' %}
+                        <p><span class="label label-warning">{{ article.date_written | date:"d M, Y" }}</span></p>
+                        {% endlanguage %}
                     </div>
                 </a>
                 </div>
-                {% comment %}
-                <div class="media">
-                        <a class="media-left" href="#">
-                            {% if article.cover %}
-                                     <img src="{% version article.cover 'small' %}">
-                                <img class="media-object" src="{{ article.cover.url }}">
-                            {% else %}
-                                <img class="media-object" src="/media/uploads/bush.jpg">
-                            {% endif %}
-                        </a>
-                <div class="media-body">
-                <h4 class="media-heading"><a href="{% url 'articles:detail' article.pk %}">
-                    {{ article.title }}</a>
-                </h4>
-                    {{ article.date_written | date:"d F, Y"}}
-                </div>
-                </div>
-                {% endcomment %}
             </div>
     {% endfor %}
         </div>
