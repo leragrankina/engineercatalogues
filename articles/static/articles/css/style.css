@@ -131,3 +131,11 @@
 .comment-row:last-child .comment-col{
     border-bottom: none;
 }
+
+.comment-col > p:first-child{
+    min-height: 20px;
+}
+
+.btn-crud{
+    font-size: 8pt;
+}

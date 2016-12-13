@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load custom_tags %}
 {% load i18n %}
 {% block title %}{{ article.title }}{% endblock %}
@@ -62,4 +63,3 @@
 {% endif %}
 </div>
 {% endblock %}
-<script src="{% static 'articles/js/action.js' %}"></script>

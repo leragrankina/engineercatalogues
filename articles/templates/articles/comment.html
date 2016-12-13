@@ -6,17 +6,25 @@
         {% localtime on %}
             {{ comment.datetime_posted | localtime | human_date }}</span>
         {% endlocaltime %}
-    {% endlanguage %}</p>
-    <p>{{ comment.text }}</p>
+    {% endlanguage %}
     {% if comment.created_by == user %}
-        <form method="post" action="{% url 'articles:update_comment' comment.pk %}" hidden>
-        {% csrf_token %}
-            <div class="form-group">
-                <textarea class="form-control" id="comment_update" name="id_text">{{ comment.text }}</textarea>
-            </div>
-        <input type="submit" value="update" class="btn btn-link">
-        </form>
-        <form method="post" action="{% url 'articles:delete_comment' comment.pk %}" hidden>
+        <button class="btn btn-link pull-right btn-crud"><i class="glyphicon glyphicon-remove text-muted" ></i></button>
+        <button class="btn btn-link pull-right btn-crud"><i class="glyphicon glyphicon-pencil text-muted"></i></button>
+    {% endif %}
+</p>
+<p class="comment-text">{{ comment.text }}</p>
+    {% if comment.created_by == user %}
+            <form method="post" action="{% url 'articles:update_comment' comment.pk %}" class="form-crud">
+            {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control" id="comment_update" name="id_text" rows="7">{{ comment.text }}</textarea>
+                </div>
+            <button class="btn btn-success btn-sm pull-right">
+                сохранить
+            </button>
+            <button type="button" class="btn btn-link pull-right">отменить</button>
+            </form>
+        <form method="post" action="{% url 'articles:delete_comment' comment.pk %}" class="form-crud">
             {% csrf_token %}
             <button type="submit" class="btn btn-link">
                 <i class="glyphicon glyphicon-remove"></i>
