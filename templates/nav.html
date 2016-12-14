@@ -2,18 +2,19 @@
 
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-        <a href="{% url 'index' %}" class="navbar-brand">
-            <img src="/media/logo2.jpg" height="40" >
-        </a>
-</div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+                <a href="{% url 'index' %}" class="navbar-brand">
+                    <img src="/media/logo2.jpg" height="40" >
+                </a>
+        </div>
+
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             {% if request.path == '/' %}
@@ -34,24 +35,26 @@
                 <li>
             {% endif %}
             <a href="{% url 'book:index' %}">Книга</a></li>
+
         </ul>
-    {% if user.is_authenticated %}
-        <p class="navbar-text navbar-right">Вы вошли как {{ user.username }} <a href="{% url 'auth_logout' %}?next={{ request.path }}"
-        class="btn btn-info navbar-btn">Выйти</a></p>
-    {% else %}
-    <form class="navbar-form navbar-right" role="form" action="{% url 'auth_login' %}?next={{ request.path }}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Логин" id="id_username" name="username">
+        <div class="dropdown nav navbar-nav">
+            <a id="drop" href="{% url 'auth_logout' %}?next={{ request.path }}"
+            class="btn btn-link navbar-btn btn-circle dropdown-toggle"
+               data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" role="button">
+                    <i class="glyphicon glyphicon-user"></i><span>{{ user.username }}</span>
+                <i class="glyphicon glyphicon-triangle-bottom icon-resize-small"></i>
+            </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop">
+                    <li class="dropdown-item"><a href="{% url 'auth_logout' %}?next={{ request.path }}">Изменить</a></li>
+                    <li class="dropdown-item"><a href="{% url 'auth_logout' %}?next={{ request.path }}">Выйти</a></li>
+                </ul>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Пароль" id="id_password" name="password">
-        </div>
-        <button type="submit" class="btn btn-info">Войти</button>
-    </form>
-    {% endif %}
+        {% if user.is_authenticated %}
+            <div class="dropdown navbar-right">
+            </div>
+        {% else %}
+            <a href="{% url 'auth_login' %}?next={{ request.path }}" class="btn btn-link navbar-btn navbar-right btn-circle"><i class="glyphicon glyphicon-user"></i><span>войти</span></a>
+        {% endif %}
     </div>
 </div>
 </nav>
-{{ login_form }}
-

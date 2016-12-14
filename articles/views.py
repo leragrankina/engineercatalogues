@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, Http404, HttpResponse, get_object_or_404
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView, TemplateView
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth import authenticate, login
 
 from .models import Article, Comment
 
@@ -48,3 +49,15 @@ def update_comment(request, pk):
         comment.text = comment_text
         comment.save()
     return HttpResponseRedirect(reverse_lazy('articles:detail', args=(comment.article.pk,)))
+
+
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', False)
+        password = request.POST.get('password', False)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(request.GET['next'])
+        return render(request, 'registration/login.html', {'error': 'Неправильный логин или пароль'})
+

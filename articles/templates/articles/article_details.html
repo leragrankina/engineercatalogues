@@ -48,14 +48,14 @@
             <p><span class="text-muted">Вы вошли как<br></span><b>{{ user.username }}</b></p>
         {% endif %}
     </div>
-    <div class="col-xs-6 comment-col">
+    <div class="col-xs-6 comment-col col-xs-offset-1">
         {% comment_form article %}
     </div>
 </div>
 {% if article.comment_set %}
     {% for comment in article.comment_set.all %}
         <div class="row comment-row">
-            <div class="col-xs-6 col-xs-offset-2 comment-col">
+            <div class="col-xs-6 col-xs-offset-3 comment-col">
                 {% show_comment %}
             </div>
         </div>

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'articles/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'articles/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/css/font-awesome.min.css' %}">
 </head>
 <body>
 {% include 'nav.html' %}

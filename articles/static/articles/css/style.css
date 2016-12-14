@@ -3,22 +3,22 @@
 }
 
 .navbar-inverse {
-     background: #0F6BB2;
+     background: #005689 ;
      font-size: 12pt;
 }
 
-.navbar-inverse .navbar-nav li a, .navbar-inverse .navbar-brand, .navbar-inverse .navbar-text{
+.navbar-inverse ul.navbar-nav li a, .navbar-inverse .navbar-brand, .navbar-inverse .navbar-text{
     color: white;
 }
 
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse ul.navbar-nav > .active > a,
+.navbar-inverse ul.navbar-nav > .active > a:hover,
+.navbar-inverse ul.navbar-nav > .active > a:focus {
     color: #fff49e;
     background: #1A237E;
 }
 
-.navbar-inverse .navbar-nav li a:hover{
+.navbar-inverse ul.navbar-nav li a:hover{
     color: #fff49e;
     background: #58407e;
 }
@@ -138,4 +138,50 @@
 
 .btn-crud{
     font-size: 8pt;
+}
+
+.navbar-inverse .navbar-btn{
+    color: white;
+}
+
+.btn-circle{
+    border: 1px grey solid;
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    padding-top: 10px;
+    margin: 4px;
+}
+
+.btn-circle:hover{
+    border: 1px solid white;
+}
+
+.btn-circle span{
+    padding-left: 20px;
+}
+
+.signin{
+    background: cornflowerblue;
+    color: white;
+}
+
+label{
+    font-weight: normal;
+}
+
+nav .dropdown-item{
+    width: 50%;
+}
+
+.icon-resize-small{
+    font-size: 8pt;
+}
+
+.dropdown-menu > li > a{
+    color: black;
+}
+
+.dropdown{
+    float: right;
 }
