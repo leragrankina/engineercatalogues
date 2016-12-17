@@ -34,4 +34,22 @@ $(document).ready(function(){
         $(this).find('.btn-crud').hide();
     });
 
+    $('#plain-pass .input-group-addon').on('click', function () {
+        $('#hidden-pass').css('display', 'table');
+        $('#plain-pass').hide();
+    });
+
+    $('#plain-pass input').on('input', function () {
+        $('#hidden-pass input').val($(this).val());
+    });
+
+    $('#hidden-pass input').on('input', function () {
+        $('#plain-pass input').val($(this).val());
+    });
+
+    $('#hidden-pass .input-group-addon').on('click', function(){
+        $('#plain-pass').css('display', 'table')
+        $('#hidden-pass').hide();
+    });
+
 });

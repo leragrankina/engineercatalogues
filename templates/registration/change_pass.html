@@ -1,0 +1,43 @@
+{% extends 'registration/account_base.html' %}
+{% block title %}Изменить пароль{% endblock %}
+{% block jumbotron %}Изменить пароль{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            {% if error %}
+                <p class="text-danger">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    {{ error }}
+                </p>
+            {% endif %}
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for id="old-pass">Старый пароль</label>
+                    <input type="password" class="form-control" name="old-password" id="old-pass">
+                </div>
+                <div class="form-group">
+                    <label for id="new-pass">Новый пароль</label>
+                    <div class="input-group" id="plain-pass">
+                        <input type="text" class="form-control">
+                        <div class="input-group-addon">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="input-group" id="hidden-pass" aria-describedby="passwordHelpText">
+                        <input type="password" name="new-password" id="new-pass" class="form-control">
+                        <div class="input-group-addon">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <p id="passwordHelpText" class="form-text text-muted">
+                        Пароль должен быть от 8 символов
+                    </p>
+                </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Изменить пароль</button>
+                    </div>
+            </form>
+    </div></div></div>
+{% endblock %}

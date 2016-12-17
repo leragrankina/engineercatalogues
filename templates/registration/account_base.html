@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'articles/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/css/font-awesome.min.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+         <a class="navbar-brand navbar-right" href="{% url 'index' %}">
+            <img src="/media/logo2.jpg" height="40">
+        </a>
+         <a href="{% url 'index' %}" class="navbar-text btn-circle text-center"><i class="glyphicon glyphicon-chevron-left"></i></a>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <h2>{% block jumbotron %}{% endblock %}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% block content %}
+{% endblock %}
+<script src="{% static 'articles/js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'articles/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'articles/js/action.js' %}"></script>
+</body>
+</html>

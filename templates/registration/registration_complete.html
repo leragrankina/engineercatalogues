@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-</head>
-<body>
-{% include 'articles/../nav.html' %}
-<p>Your account has been registered. Please check your email to activate it.
-</p>
-</body>
-</html>
+{% extends 'registration/account_base.html' %}
+{% block jumbotron %}
+    Вы зарегестрированы
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+    Пожалуйста, проверьте свою почту, чтобы активировать аккаунт.
+    </div></div></div>
+{% endblock %}

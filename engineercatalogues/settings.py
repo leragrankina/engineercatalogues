@@ -142,12 +142,15 @@ EMAIL_HOST_PASSWORD = '11le96ra'
 TINYMCE_JS_ROOT = '/grappelli/tinymce/jscripts/tiny_mce'
 TINYMCE_JS_URL = os.path.join(STATIC_URL, 'grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js')
 TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
+                          'inline': 'true',
+                          'fixed_toolbar_container': '#mytoolbar',
                           'height': "500",
-                          'width': "800",
-                          'content_css': ['/static/articles/style.css'],
+                          'width': "1000",
+                          'language': 'ru',
+                          'content_css': ['/static/articles/css/style.css'],
                           'plugins': 'paste,table',
                           'block_formats': 'Paragraph=p;Header 1=h1;',
-                          'theme_advanced_blockformats':'p,h1,h2,h3,h4,h5',
+                          'theme_advanced_blockformats': 'p,h1,h2,h3,h4,h5',
                           'theme_advanced_location': "top",
                           'theme_advanced_buttons1': "undo,redo,|,formatselect,|"
                                                      ",bold,italic,underline,|"
@@ -165,3 +168,5 @@ FILEBROWSER_STATIC_ROOT = STATIC_ROOT
 FILEBROWSER_STATIC_URL = STATIC_URL
 FILEBROWSER_URL_FILEBROWSER_MEDIA = MEDIA_URL
 FILEBROWSER_PATH_FILEBROWSER_MEDIA = MEDIA_ROOT
+
+LANGUAGE_CODE = 'ru'

@@ -37,6 +37,7 @@
             <a href="{% url 'book:index' %}">Книга</a></li>
 
         </ul>
+        {% if user.is_authenticated %}
         <div class="dropdown nav navbar-nav">
             <a id="drop" href="{% url 'auth_logout' %}?next={{ request.path }}"
             class="btn btn-link navbar-btn btn-circle dropdown-toggle"
@@ -45,13 +46,10 @@
                 <i class="glyphicon glyphicon-triangle-bottom icon-resize-small"></i>
             </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop">
-                    <li class="dropdown-item"><a href="{% url 'auth_logout' %}?next={{ request.path }}">Изменить</a></li>
+                    <li class="dropdown-item"><a href="{% url 'change-pass' %}">Изменить пароль</a></li>
                     <li class="dropdown-item"><a href="{% url 'auth_logout' %}?next={{ request.path }}">Выйти</a></li>
                 </ul>
         </div>
-        {% if user.is_authenticated %}
-            <div class="dropdown navbar-right">
-            </div>
         {% else %}
             <a href="{% url 'auth_login' %}?next={{ request.path }}" class="btn btn-link navbar-btn navbar-right btn-circle"><i class="glyphicon glyphicon-user"></i><span>войти</span></a>
         {% endif %}

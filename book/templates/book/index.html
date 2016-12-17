@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Book{% endblock %}
 {% block content %}
-    <p>
-    <img src="/media/book_cover.jpg">
-    </p>
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+    <p><img src="/media/book_cover.jpg"></p>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
     {% if error %}
     <p>error.type</p>
     {% endif %}
@@ -17,7 +22,9 @@
     data-description="Buy book"
     data-locale="auto"
     data-shipping-address="true"
+    data-billing-address="true"
     >
     </script>
     </form>
+    </div></div></div>
 {% endblock %}

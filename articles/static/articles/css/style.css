@@ -185,3 +185,19 @@ nav .dropdown-item{
 .dropdown{
     float: right;
 }
+
+.input-group-addon:hover, .input-group-addon:focus{
+    cursor: pointer;
+}
+
+#plain-pass{
+    display: none;
+}
+
+.transparent + .row{
+    margin-top: 15px;
+}
+
+#tinymce.mceContentBody{
+    font-size: 14pt;
+}

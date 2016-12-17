@@ -21,6 +21,7 @@ from django.contrib import admin
 from filebrowser.sites import site
 
 from articles.views import index
+from usermanager.views import change_password, signin
 
 urlpatterns = [
     url(r'^admin/filebrowser/', include(site.urls)),
@@ -32,4 +33,6 @@ urlpatterns = [
     url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'^catalogues/', include('catalogues.urls', namespace='catalogues')),
     url(r'^book/', include('book.urls', namespace='book')),
+    url(r'^change-password$', change_password, name='change-pass'),
+    url(r'^signin$', signin, name='signin')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

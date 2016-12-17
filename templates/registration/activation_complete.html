@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Activation Complete</title>
-</head>
-<body>
-{% include 'articles/../nav.html' %}
-<p>Your account has been activated.</p>
-</body>
-</html>
+{% extends 'registration/account_base.html' %}
+{% block jumbotron %}
+    Ваш аккаунт активирован
+{% endblock %}
