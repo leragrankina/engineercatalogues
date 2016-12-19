@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'engineercatalogues.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
     }
 }
 
@@ -146,7 +146,7 @@ TINYMCE_DEFAULT_CONFIG = {'theme': "advanced",
                           'fixed_toolbar_container': '#mytoolbar',
                           'height': "500",
                           'width': "1000",
-                          'language': 'ru',
+                          'language': 'en',
                           'content_css': ['/static/articles/css/style.css'],
                           'plugins': 'paste,table',
                           'block_formats': 'Paragraph=p;Header 1=h1;',

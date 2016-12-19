@@ -18,7 +18,7 @@ class AdminForm(forms.ModelForm):
         fields = ['title', 'text', 'date_written', 'cover']
 
 
-class CommentInlines(admin.TabularInline):
+class CommentInlines(admin.StackedInline):
     model = Comment
 
 

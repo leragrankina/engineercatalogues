@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, Http404, get_object_or_404
 from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse, reverse_lazy
